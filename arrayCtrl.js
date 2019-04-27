@@ -3,9 +3,6 @@ var ArrayCtrl = /** @class */ (function () {
     function ArrayCtrl(arr) {
         this.arr = arr;
     }
-    ArrayCtrl.prototype.func = function (a, b, arr) {
-        return;
-    };
     ArrayCtrl.prototype.sortUp = function (x) {
         var _a;
         if (this.arr.includes(x)) {
@@ -44,4 +41,44 @@ var ArrayCtrl = /** @class */ (function () {
         }
     };
     return ArrayCtrl;
+}());
+var statusSwitch = /** @class */ (function () {
+    function statusSwitch(value_set) {
+        this.switch_key = [];
+        this.switch_status = null;
+        this.value_set = value_set;
+    }
+    statusSwitch.prototype.checkIndex = function (val, arr) {
+        for (var i = 0; i < arr.length; i++) {
+            if (arr[i] = val) {
+                return i;
+            }
+        }
+    };
+    statusSwitch.prototype.switchStatus = function (item, rules) {
+        var change_item = item;
+        this.switch_key = Object.keys(rules).reverse();
+        var result = this.value_set;
+        var _loop_1 = function (val) {
+            if (val instanceof Array) {
+                console.log('数据格式不正确');
+            }
+            else {
+                var changeValue = val[change_item];
+                var keyValue_1 = changeValue.toString();
+                var changeIndex = this_1.switch_key.findIndex(function (value, index, arr) {
+                    return value === keyValue_1;
+                });
+                var targetStatus = rules[changeIndex];
+                val[change_item] = targetStatus[changeValue];
+            }
+        };
+        var this_1 = this;
+        for (var _i = 0, result_1 = result; _i < result_1.length; _i++) {
+            var val = result_1[_i];
+            _loop_1(val);
+        }
+        return result;
+    };
+    return statusSwitch;
 }());
