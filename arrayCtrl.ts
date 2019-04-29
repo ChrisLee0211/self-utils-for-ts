@@ -62,14 +62,14 @@ interface Params_statusSwitch {
     value_set:Array<any>|any,
     switch_key:Array<any>
     switch_status:any
-    switchStatus(item:string,rules:Object):any
+    data_transform(item:string,rules:Object):any
 }
 
  class statusSwitch implements Params_statusSwitch {
     value_set:Array<any>|any;
     switch_key:Array<any>=[];
     switch_status:any=null;
-    constructor(value_set:Array<any>|Object){
+    constructor(value_set:Array<any>|any){
         this.value_set = value_set
     }
     checkIndex(val:any,arr:Array<any>){
@@ -79,9 +79,14 @@ interface Params_statusSwitch {
             }
         }
     }
-    switchStatus(item:any,rules:any){
+    data_transform(item:any,rules:any){
         let change_item = item;
-        this.switch_key = Object.keys(rules).reverse()
+        let rule_arr:Array<any> = [];
+        rules.forEach((record:any,index:number )=> {
+            let key = Object.keys(record)[0];
+            rule_arr.push(key)
+        })
+        this.switch_key = rule_arr
             let result:any = this.value_set
             for(let val of result){
                 if(val instanceof Array){
@@ -92,7 +97,6 @@ interface Params_statusSwitch {
                     let changeIndex = this.switch_key.findIndex((value,index,arr)=>{
                         return value === keyValue
                     })
-
                     let targetStatus = rules[changeIndex]
                     val[change_item] = targetStatus[changeValue]
                 }

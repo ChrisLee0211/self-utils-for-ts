@@ -55,9 +55,14 @@ var statusSwitch = /** @class */ (function () {
             }
         }
     };
-    statusSwitch.prototype.switchStatus = function (item, rules) {
+    statusSwitch.prototype.data_transform = function (item, rules) {
         var change_item = item;
-        this.switch_key = Object.keys(rules).reverse();
+        var rule_arr = [];
+        rules.forEach(function (record, index) {
+            var key = Object.keys(record)[0];
+            rule_arr.push(key);
+        });
+        this.switch_key = rule_arr;
         var result = this.value_set;
         var _loop_1 = function (val) {
             if (val instanceof Array) {
