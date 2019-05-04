@@ -12,7 +12,7 @@
     参数(params):数组内的元素
     返回(return):顺序调换后的数组
 */ 
-interface Params_arryCtrl {
+export interface Params_arryCtrl {
     arr:Array<any>,
     // func(a:any,b:any,arr):Array<any>,
     sortUp(x:any):Array<any>,
@@ -57,6 +57,18 @@ interface Params_arryCtrl {
         }
     }
 }
+/*
+接口名称：statusSwitch
+功能：    根据自定义规则转换指定对象中的指定属性值
+用法：    传入要对象数组作为参数到statusSwitch中生成实例，然后用实例调用相应的方法实现对象的转换
+方法说明： 
+    data_transform(item,rules)
+    作用:根据rules设定的规则，转换每个对象中的item对应值
+    参数(params):
+        1、item:String类型，要转换的对象中的某一个属性名称;
+        2、rules:Array类型，可以将多个判断规则放进数组中，如[{'1':true},{'2':false},{'3':'无数据'}],表示item等于不同值时，转换为对应的内容，如为'1'时，转换为true
+    返回(return):转换完成后的对象数组
+*/ 
 
 interface Params_statusSwitch {
     value_set:Array<any>|any,
@@ -65,7 +77,7 @@ interface Params_statusSwitch {
     data_transform(item:string,rules:Object):any
 }
 
- class statusSwitch implements Params_statusSwitch {
+export class statusSwitch implements Params_statusSwitch {
     value_set:Array<any>|any;
     switch_key:Array<any>=[];
     switch_status:any=null;
