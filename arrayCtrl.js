@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 var ArrayCtrl = /** @class */ (function () {
     function ArrayCtrl(arr) {
         this.arr = arr;
@@ -87,3 +88,4 @@ var statusSwitch = /** @class */ (function () {
     };
     return statusSwitch;
 }());
+exports.statusSwitch = statusSwitch;
