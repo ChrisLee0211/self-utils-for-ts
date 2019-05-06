@@ -74,7 +74,7 @@ interface Params_statusSwitch {
     value_set:Array<any>|any,
     switch_key:Array<any>
     switch_status:any
-    data_transform(item:string,rules:Object):any
+    data_transform(item:string,rules:Array<any>):any
 }
 
 export class statusSwitch implements Params_statusSwitch {
