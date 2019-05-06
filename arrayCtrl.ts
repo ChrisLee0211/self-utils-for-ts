@@ -12,14 +12,14 @@
     参数(params):数组内的元素
     返回(return):顺序调换后的数组
 */ 
-export interface Params_arryCtrl {
+interface Params_arryCtrl {
     arr:Array<any>,
     // func(a:any,b:any,arr):Array<any>,
     sortUp(x:any):Array<any>,
     sortDown(x:any):Array<any>
 }
 
- class ArrayCtrl implements Params_arryCtrl{
+export class ArrayCtrl implements Params_arryCtrl{
     arr:Array<any>;
     constructor (arr:Array<any>){
         this.arr = arr
