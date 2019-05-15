@@ -1,5 +1,3 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
 var ArrayCtrl = /** @class */ (function () {
     function ArrayCtrl(arr) {
         this.arr = arr;
@@ -43,6 +41,7 @@ var ArrayCtrl = /** @class */ (function () {
     };
     return ArrayCtrl;
 }());
+export { ArrayCtrl };
 var statusSwitch = /** @class */ (function () {
     function statusSwitch(value_set) {
         this.switch_key = [];
@@ -88,4 +87,24 @@ var statusSwitch = /** @class */ (function () {
     };
     return statusSwitch;
 }());
-exports.statusSwitch = statusSwitch;
+export { statusSwitch };
+export var hasArray = function (arr, getIndex) {
+    if (getIndex === void 0) { getIndex = false; }
+    var judge_arr = arr;
+    var is_return_index = getIndex;
+    var index_arr = [];
+    var has_arr = false;
+    Array.from(judge_arr).forEach(function (record, index) {
+        if (record instanceof Array) {
+            console.log('ok');
+            index_arr.push(index);
+            has_arr = true;
+        }
+    });
+    if (is_return_index === true) {
+        return index_arr;
+    }
+    else {
+        return has_arr;
+    }
+};
