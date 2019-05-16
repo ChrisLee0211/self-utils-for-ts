@@ -4,6 +4,7 @@
 ## 目录
 * [数组元素位置升降](#数组元素位置升降)
 * [接口数据便捷转换](#接口数据便捷转换)
+* [判断数组内是否嵌套数组](#判断数组内是否嵌套数组)
 
 
 
@@ -111,3 +112,30 @@ console.log(switch_one)
 |---|---|---|
 |data_transform|属性(String),规则(Object)|完成转换后的数组|
 #### 注意：规则的格式为：[{key:value},{key2:value2}...]，其中键值对里key的表示的是对应的状态码或其他数据,value表示要转换成的最终值，可以根据需要在数组里添加多个键值对。
+
+### 判断数组内是否嵌套数组
+> 用于判断数组内，是否含有另外的数组，返回一个布尔值或包含该嵌套数组在数组内的索引组成的数组
+- 用法：
+```javascript
+  //导入arrayCtrl.js文件
+  import {hasArray} from "./arrayCtrl.js"
+  
+  let arr = [['boy','man'],2,[4],6,{name:'mike'}] ;//假设有这样一组数组
+  let judgeArr = hasArray(arr);//将数组作为参数传入
+  
+  let getIndex = hasArray(arr,true);
+  //将数组作为参数传入,并且第二个参数设为true，表示返回如果含有子数组，就返回所有子数组的索引组成的数组
+  
+  console.log(judgeArr); 
+  //true
+  
+  console.log(getIndex) ;//返回一个数组，里面是所有子数组在数组中的索引
+  //[0,2]
+```
+- 说明:  
+hasArray函数接受两个参数，第一个为要判断的数组，第二个为是否返回索引值，其中第二个参数若不传，则默认为false:
+
+|方法名|接收参数|返回结果|
+|---|---|---|
+|hasArray|arr(数组),isGetIndex(布尔值，默认为false)|若只传数组，则返回布尔值，若传入数组与true，则返回一个数组|
+
