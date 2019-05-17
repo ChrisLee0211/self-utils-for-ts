@@ -118,7 +118,16 @@ export class statusSwitch implements Params_statusSwitch {
         
     }
 }
-
+/*
+函数名称: hasArray
+功能:判断一个数组里是否嵌套了子数组，是则返回true。同时也可以传入第二个参数来返回由子数组索引组成的数组
+用法：
+    1、函数接收两个参数：
+        param_1(Array):要进行判断的数组；
+        param_2(Boolean):是否返回子数组索引组成的数组，如果只传一个参数，那么默认第二个参数为false
+    2、当只传入数组时，只返回true or false来分别表示有\无子数组
+    3、当传入两个参数并且第二个参数为true时，有子数组则返回子数组索引组成的数组，没有子数组则返回false
+*/
 export const hasArray= function (arr:Array<any>,getIndex:Boolean=false):Boolean|Array<number>{
     let judge_arr:Array<any> = arr
     let is_return_index:Boolean = getIndex
