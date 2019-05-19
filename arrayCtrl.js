@@ -1,4 +1,3 @@
-"use strict";
 var ArrayCtrl = /** @class */ (function () {
     function ArrayCtrl(arr) {
         this.arr = arr;
@@ -42,6 +41,7 @@ var ArrayCtrl = /** @class */ (function () {
     };
     return ArrayCtrl;
 }());
+export { ArrayCtrl };
 var statusSwitch = /** @class */ (function () {
     function statusSwitch(value_set) {
         this.switch_key = [];
@@ -87,6 +87,7 @@ var statusSwitch = /** @class */ (function () {
     };
     return statusSwitch;
 }());
+export { statusSwitch };
 /*
 函数名称: hasArray
 功能:判断一个数组里是否嵌套了子数组，是则返回true。同时也可以传入第二个参数来返回由子数组索引组成的数组
@@ -97,7 +98,7 @@ var statusSwitch = /** @class */ (function () {
     2、当只传入数组时，只返回true or false来分别表示有\无子数组
     3、当传入两个参数并且第二个参数为true时，有子数组则返回子数组索引组成的数组，没有子数组则返回false
 */
-var hasArray = function (arr, getIndex) {
+export var hasArray = function (arr, getIndex) {
     if (getIndex === void 0) { getIndex = false; }
     var judge_arr = arr;
     var is_return_index = getIndex;
@@ -148,3 +149,4 @@ var inventObject = /** @class */ (function () {
     };
     return inventObject;
 }());
+export { inventObject };

@@ -19,7 +19,7 @@ interface Params_arryCtrl {
     sortDown(x: any): Array<any>
 }
 
-class ArrayCtrl implements Params_arryCtrl {
+export class ArrayCtrl implements Params_arryCtrl {
     arr: Array<any>;
     constructor(arr: Array<any>) {
         this.arr = arr
@@ -77,7 +77,7 @@ interface Params_statusSwitch {
     data_transform(item: string, rules: Array<any>): any
 }
 
-class statusSwitch implements Params_statusSwitch {
+export class statusSwitch implements Params_statusSwitch {
     value_set: Array<any> | any;
     switch_key: Array<any> = [];
     switch_status: any = null;
@@ -128,7 +128,7 @@ class statusSwitch implements Params_statusSwitch {
     2、当只传入数组时，只返回true or false来分别表示有\无子数组
     3、当传入两个参数并且第二个参数为true时，有子数组则返回子数组索引组成的数组，没有子数组则返回false
 */
-const hasArray = function (arr: Array<any>, getIndex: Boolean = false): Boolean | Array<number> {
+export const hasArray = function (arr: Array<any>, getIndex: Boolean = false): Boolean | Array<number> {
     let judge_arr: Array<any> = arr
     let is_return_index: Boolean = getIndex
     let index_arr: Array<number> = []
@@ -171,13 +171,13 @@ const hasArray = function (arr: Array<any>, getIndex: Boolean = false): Boolean 
         console.log(result)
         //打印结果是{1:'apple',2:'beef',3:'peer'}
 */
-interface inventObject {
+ interface Param_inventObject {
     obj_arr: Array<any>,
     obj: any,
     getNewObject(key: any, value: any): Object
 }
 
-class inventObject implements inventObject {
+export class inventObject implements Param_inventObject {
     obj_arr: Array<any>;
     obj: any;
     isArray: Boolean
