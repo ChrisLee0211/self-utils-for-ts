@@ -150,3 +150,35 @@ var inventObject = /** @class */ (function () {
     return inventObject;
 }());
 export { inventObject };
+export var differArray = function (arr1, arr2) {
+    var result_arr = [];
+    var result = [];
+    var target_arr_A = [];
+    var target_arr_B = [];
+    Array.from(arr1).forEach(function (record) {
+        target_arr_A.push(JSON.stringify(record));
+    });
+    Array.from(arr2).forEach(function (record) {
+        target_arr_B.push(JSON.stringify(record));
+    });
+    Array.from(target_arr_A).forEach(function (record) {
+        if (target_arr_B.includes(record)) {
+            return;
+        }
+        else {
+            result_arr.push(record);
+        }
+    });
+    Array.from(target_arr_B).forEach(function (record) {
+        if (target_arr_A.includes(record)) {
+            return;
+        }
+        else {
+            result_arr.push(record);
+        }
+    });
+    Array.from(result_arr).forEach(function (record) {
+        result.push(JSON.parse(record));
+    });
+    return result;
+};
