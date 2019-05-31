@@ -7,6 +7,7 @@
 * [2.接口数据便捷转换](#接口数据便捷转换)
 * [3.判断数组内是否嵌套数组](#判断数组内是否嵌套数组)
 * [4.拼接新对象](#拼接新对象)
+* [5.数组的补集](#数组的补集)
 
 
 
@@ -170,6 +171,40 @@ hasArray函数接受两个参数，第一个为要判断的数组，第二个为
 |方法名|接收参数|返回结果|
 |---|---|---|
 |getNewObject|1.key:类型为string，要作为key:value中key的属性值的名称;<br>2.value:类型为string，要作为key:value中value值的属性值的名称;|已拼接好的新对象|
+
+
+----
+
+### 数组的补集
+> 主要用于对比两个数组，返回它们之间的不同项，也就是两个数组的补集
+- 用法：
+```javascript
+  //导入arrayCtrl.js文件
+  import {differArray } from "./arrayCtrl.js"
+  
+  let arr_A = [
+      {id:1,type:'apple',isFruit:true},
+      {id:4,type:'banana',isFruit:false},
+      {id:3,type:'peer',isFruit:true}
+   ]
+   let arr_B = [
+      {id:1,type:'apple',isFruit:true},
+      {id:5,type:'orange',isFruit:false},
+      {id:3,type:'peer',isFruit:true}
+   ]
+     //假设我们要用取两个数组中的不同项
+   result = differArray(arr_A,arr_B)
+   console.log(result)
+        //打印结果是:
+        //[{id:4,type:'banana',isFruit:false},{id:5,type:'orange',isFruit:false},]
+```
+
+- 说明:  
+将要做对比的两个数组作为参数传入`differArray()`中：
+
+|方法名|接收参数|返回结果|
+|---|---|---|
+|differArray|两个参数都是Array类型|对比后的不同项所组成的数组|
 
 
 ----
