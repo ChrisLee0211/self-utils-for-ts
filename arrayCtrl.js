@@ -150,6 +150,17 @@ var inventObject = /** @class */ (function () {
     return inventObject;
 }());
 export { inventObject };
+/*
+函数名称: differArray
+功能:对比两个数组，将两者之间不是共有的元素以数组形式返回，可以看做是两数组相减
+用法：
+    1、函数接收两个参数：
+        param_1(Array):要进行对比的数组；
+        param_2(Array):要进行对比的数组；
+    2、返回值:
+        result(Array):两数组之间不是共有的元素组成的数组
+    
+*/
 export var differArray = function (arr1, arr2) {
     var result_arr = [];
     var result = [];
