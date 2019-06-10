@@ -251,3 +251,7 @@ export const differArray = function(arr1:Array<any>,arr2:Array<any>):Array<any>{
     })
     return result
 }
+
+export const countDown = function(val:number,func:Function,delay?:number):any{
+    return (val>0)?setTimeout(()=>countDown(val-1,func),delay):func()
+}

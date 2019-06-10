@@ -193,3 +193,6 @@ export var differArray = function (arr1, arr2) {
     });
     return result;
 };
+export var countDown = function (val, func, delay) {
+    return (val > 0) ? setTimeout(function () { return countDown(val - 1, func); }, delay) : func();
+};
