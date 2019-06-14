@@ -164,14 +164,8 @@ export { inventObject };
 export var differArray = function (arr1, arr2) {
     var result_arr = [];
     var result = [];
-    var target_arr_A = [];
-    var target_arr_B = [];
-    Array.from(arr1).forEach(function (record) {
-        target_arr_A.push(JSON.stringify(record));
-    });
-    Array.from(arr2).forEach(function (record) {
-        target_arr_B.push(JSON.stringify(record));
-    });
+    var target_arr_A = arr1.map(function (val) { return (JSON.stringify(val)); });
+    var target_arr_B = arr2.map(function (val) { return (JSON.stringify(val)); });
     Array.from(target_arr_A).forEach(function (record) {
         if (target_arr_B.includes(record)) {
             return;
@@ -188,9 +182,7 @@ export var differArray = function (arr1, arr2) {
             result_arr.push(record);
         }
     });
-    Array.from(result_arr).forEach(function (record) {
-        result.push(JSON.parse(record));
-    });
+    result = result_arr.map(function (val) { return (JSON.parse(val)); });
     return result;
 };
 export var countDown = function (val, func, delay) {

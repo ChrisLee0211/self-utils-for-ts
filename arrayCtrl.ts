@@ -224,14 +224,8 @@ export class inventObject implements Param_inventObject {
 export const differArray = function(arr1:Array<any>,arr2:Array<any>):Array<any>{
     let result_arr:Array<any> = [];
     let result:Array<any> = [];
-    let target_arr_A:Array<any> = [];
-    let target_arr_B:Array<any> = [];
-    Array.from(arr1).forEach(record=>{
-        target_arr_A.push(JSON.stringify(record))
-    })
-    Array.from(arr2).forEach(record=>{
-        target_arr_B.push(JSON.stringify(record))
-    })
+    let target_arr_A:Array<any> = arr1.map(val=>(JSON.stringify(val)));
+    let target_arr_B:Array<any> = arr2.map(val=>(JSON.stringify(val)));
     Array.from(target_arr_A).forEach(record=>{
         if(target_arr_B.includes(record)){
             return
@@ -246,9 +240,7 @@ export const differArray = function(arr1:Array<any>,arr2:Array<any>):Array<any>{
             result_arr.push(record)
         }
     })
-    Array.from(result_arr).forEach(record=>{
-        result.push(JSON.parse(record))
-    })
+    result = result_arr.map(val=>(JSON.parse(val)))
     return result
 }
 
