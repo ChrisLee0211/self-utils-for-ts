@@ -152,13 +152,13 @@ var inventObject = /** @class */ (function () {
 export { inventObject };
 /*
 函数名称: differArray
-功能:对比两个数组，将两者之间不是共有的元素以数组形式返回，可以看做是两数组相减
+功能:对比两个数组A和B，将所有只存在A而不存在B的元素抽离出来，组成一个数组返回。
 用法：
     1、函数接收两个参数：
         param_1(Array):要进行对比的数组；
         param_2(Array):要进行对比的数组；
     2、返回值:
-        result(Array):两数组之间不是共有的元素组成的数组
+        result(Array):只存在param_1而不存在param_2的元素所组成的数组
     
 */
 export var differArray = function (arr1, arr2) {
@@ -168,14 +168,6 @@ export var differArray = function (arr1, arr2) {
     var target_arr_B = arr2.map(function (val) { return (JSON.stringify(val)); });
     Array.from(target_arr_A).forEach(function (record) {
         if (target_arr_B.includes(record)) {
-            return;
-        }
-        else {
-            result_arr.push(record);
-        }
-    });
-    Array.from(target_arr_B).forEach(function (record) {
-        if (target_arr_A.includes(record)) {
             return;
         }
         else {
