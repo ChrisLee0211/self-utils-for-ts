@@ -180,3 +180,95 @@ export var differArray = function (arr1, arr2) {
 export var countDown = function (val, func, delay) {
     return (val > 0) ? setTimeout(function () { return countDown(val - 1, func); }, delay) : func();
 };
+var Node = /** @class */ (function () {
+    function Node(obj) {
+        this.pre = null;
+        this.next = null;
+        this.target = obj;
+        this.val();
+    }
+    Node.prototype.val = function () {
+        return this.target;
+    };
+    return Node;
+}());
+/**
+ * 双向链表
+ * 功能：
+ * 1、头部增加节点
+ * 2、尾部增加节点
+ * 3、头部删除节点
+ * 4、尾部删除节点
+ * 5、获取指定位置的节点
+ * 6、删除指定位置的节点
+ * 7、在指定位置增加节点
+ * 8、获取链表的节点个数
+ */
+var DoubleLinkList = /** @class */ (function () {
+    function DoubleLinkList() {
+        this.size = 0;
+        this.head = null;
+        this.tail = null;
+    }
+    //向头部增加节点
+    DoubleLinkList.prototype.addOnHead = function (node) {
+        var _node = new Node(node);
+        if (this.size === 0) {
+            this.head = _node;
+            this.tail = _node;
+            this.size += 1;
+        }
+        else {
+            var old_head = this.head;
+            this.head = _node;
+            this.tail = old_head;
+            _node.next = this.tail;
+            old_head.pre = _node;
+            this.size += 1;
+        }
+    };
+    //向尾部增加节点
+    DoubleLinkList.prototype.addOnTail = function (node) {
+        var _node = new Node(node);
+        if (this.size === 0) {
+            this.head = _node;
+            this.tail = _node;
+            this.size += 1;
+        }
+        else {
+            var old_tail = this.tail;
+            this.tail = _node;
+            _node.pre = old_tail;
+            old_tail.next = _node;
+            this.size += 1;
+        }
+    };
+    //头部删除节点
+    DoubleLinkList.prototype.deleteOnHead = function () {
+        if (this.size === 0) {
+            console.error('No Node In DoubleLinkList!');
+            return;
+        }
+        if (this.size < 2) {
+            this.head = null;
+            this.tail = null;
+            this.size = 0;
+        }
+        if (this.size >= 2) {
+            var old_head = this.head;
+            var new_head = old_head.next;
+            if (this.size = 2) {
+                this.size = 0;
+                this.addOnHead(new_head);
+            }
+            else {
+                this.head = new_head;
+                new_head.pre = null;
+            }
+        }
+    };
+    //尾部删除节点
+    DoubleLinkList.prototype.deleteOnTail = function () {
+    };
+    return DoubleLinkList;
+}());

@@ -240,3 +240,122 @@ export const differArray = function(arr1:Array<any>,arr2:Array<any>):Array<any>{
 export const countDown = function(val:number,func:Function,delay?:number):any{
     return (val>0)?setTimeout(()=>countDown(val-1,func),delay):func()
 }
+
+/**
+ * 类名称：节点生成器
+ * 功能：创建一个包含key：value的节点并返回
+ * 用法：接受一个（key：vakue）的对象作为参数，返回该节点
+ * 可用方法：
+ *   xxx.key：返回该节点的key
+ */
+interface node {
+    target:any,
+    pre:any,
+    next:any
+}
+class Node implements node {
+    target:any
+    pre:any = null
+    next:any = null
+    constructor(obj:any){
+        this.target = obj;
+        this.val()
+    }
+    val(){
+        return this.target
+    }
+}
+
+/**
+ * 接口名称：双向链表生成器
+ */
+interface doubleLink {
+    head:any //头部节点引用
+    tail:any //尾部节点饮用
+    size:number //节点的个数
+    addOnHead(node:any):any
+    addOnTail(node:any):any
+    deleteOnHead():any
+    deleteOnTail():any
+}
+
+/**
+ * 双向链表
+ * 功能：
+ * 1、头部增加节点
+ * 2、尾部增加节点
+ * 3、头部删除节点
+ * 4、尾部删除节点
+ * 5、获取指定位置的节点
+ * 6、删除指定位置的节点
+ * 7、在指定位置增加节点
+ * 8、获取链表的节点个数
+ */
+class DoubleLinkList implements doubleLink {
+    head:any
+    tail:any
+    size:number = 0
+
+    constructor(){
+        this.head = null;
+        this.tail = null
+    }
+    //向头部增加节点
+    addOnHead(node:any){
+        let _node:node = new Node(node);
+        if(this.size === 0){
+            this.head = _node;
+            this.tail = _node;
+            this.size += 1
+        }else{
+            let old_head:node = this.head;
+            this.head = _node;
+            this.tail = old_head;
+            _node.next = this.tail;
+            old_head.pre = _node;
+            this.size += 1
+        }
+    }
+    //向尾部增加节点
+    addOnTail(node:any){
+        let _node:node = new Node(node);
+        if(this.size === 0 ){
+            this.head = _node;
+            this.tail = _node;
+            this.size += 1
+        }else{
+            let old_tail:node = this.tail;
+            this.tail = _node;
+            _node.pre = old_tail;
+            old_tail.next = _node;
+            this.size += 1
+        }
+    }
+    //头部删除节点
+    deleteOnHead(){
+        if(this.size === 0){
+            console.error('No Node In DoubleLinkList!')
+            return
+        }
+        if(this.size < 2){
+            this.head = null;
+            this.tail = null;
+            this.size = 0
+        }
+        if(this.size >= 2){
+            let old_head:node = this.head;
+            let new_head:node = old_head.next;
+            if(this.size = 2){
+                this.size = 0;
+                this.addOnHead(new_head)
+            }else{
+                this.head = new_head;
+                new_head.pre = null;
+            }
+        }
+    }
+    //尾部删除节点
+    deleteOnTail(){
+        
+    }
+}
