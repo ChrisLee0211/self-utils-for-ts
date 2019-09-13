@@ -284,9 +284,9 @@ interface doubleLink {
  * 功能：
  * 1、头部增加节点
  * 2、尾部增加节点
- * 3、头部删除节点
- * 4、尾部删除节点
- * 5、获取指定位置的节点
+ * 3、头部删除节点(弹出头部节点)
+ * 4、尾部删除节点(弹出尾部节点)
+ * 5、判断节点是否在链表中
  * 6、删除指定位置的节点
  * 7、在指定位置增加节点
  * 8、获取链表的节点个数
@@ -338,24 +338,72 @@ class DoubleLinkList implements doubleLink {
             return
         }
         if(this.size < 2){
+            let currentNode:node = this.head;
             this.head = null;
             this.tail = null;
-            this.size = 0
+            this.size = 0;
+            return currentNode
         }
         if(this.size >= 2){
             let old_head:node = this.head;
             let new_head:node = old_head.next;
-            if(this.size = 2){
+            if(this.size === 2){
                 this.size = 0;
                 this.addOnHead(new_head)
             }else{
                 this.head = new_head;
                 new_head.pre = null;
+                this.size = this.size - 1;
             }
+            return new_head
         }
     }
     //尾部删除节点
     deleteOnTail(){
-        
+        if(this.size === 0){
+            console.error('No Node In DoubleLinkList!')
+            return
+        }
+        if(this.size < 2){
+            let currentNode:node = this.tail;
+            this.head = null;
+            this.tail = null;
+            this.size = 0;
+            return currentNode
+        }
+        if(this.size >= 2){
+            let old_tail:node = this.tail;
+            let new_tail:node = old_tail.pre;
+            if(this.size === 2){
+                this.size = 0;
+                this.addOnTail(new_tail);
+            }else{
+                this.tail = new_tail;
+                new_tail.next = null;
+                this.size = this.size - 1
+            }
+            return new_tail
+        }
     }
+    //判断节点是否在链表中
+    getNode(val:node){
+        let judgeResult = null;
+        let currentNode:node = this.head;
+        if(this.size === 0 ){
+            return false
+        }
+        if(this.size !== 0){
+            let length:number = this.size;
+            while(currentNode != val){
+                if(length > 1){
+                    currentNode = currentNode.next;
+                    length = length - 1
+                }else{
+                    return false
+                }
+            }
+            return true
+        }
+    }
+
 }

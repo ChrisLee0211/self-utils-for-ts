@@ -197,9 +197,9 @@ var Node = /** @class */ (function () {
  * 功能：
  * 1、头部增加节点
  * 2、尾部增加节点
- * 3、头部删除节点
- * 4、尾部删除节点
- * 5、获取指定位置的节点
+ * 3、头部删除节点(弹出头部节点)
+ * 4、尾部删除节点(弹出尾部节点)
+ * 5、判断节点是否在链表中
  * 6、删除指定位置的节点
  * 7、在指定位置增加节点
  * 8、获取链表的节点个数
@@ -250,25 +250,75 @@ var DoubleLinkList = /** @class */ (function () {
             return;
         }
         if (this.size < 2) {
+            var currentNode = this.head;
             this.head = null;
             this.tail = null;
             this.size = 0;
+            return currentNode;
         }
         if (this.size >= 2) {
             var old_head = this.head;
             var new_head = old_head.next;
-            if (this.size = 2) {
+            if (this.size === 2) {
                 this.size = 0;
                 this.addOnHead(new_head);
             }
             else {
                 this.head = new_head;
                 new_head.pre = null;
+                this.size = this.size - 1;
             }
+            return new_head;
         }
     };
     //尾部删除节点
     DoubleLinkList.prototype.deleteOnTail = function () {
+        if (this.size === 0) {
+            console.error('No Node In DoubleLinkList!');
+            return;
+        }
+        if (this.size < 2) {
+            var currentNode = this.tail;
+            this.head = null;
+            this.tail = null;
+            this.size = 0;
+            return currentNode;
+        }
+        if (this.size >= 2) {
+            var old_tail = this.tail;
+            var new_tail = old_tail.pre;
+            if (this.size === 2) {
+                this.size = 0;
+                this.addOnTail(new_tail);
+            }
+            else {
+                this.tail = new_tail;
+                new_tail.next = null;
+                this.size = this.size - 1;
+            }
+            return new_tail;
+        }
+    };
+    //判断节点是否在链表中
+    DoubleLinkList.prototype.getNode = function (val) {
+        var judgeResult = null;
+        var currentNode = this.head;
+        if (this.size === 0) {
+            return false;
+        }
+        if (this.size !== 0) {
+            var length_1 = this.size;
+            while (currentNode != val) {
+                if (length_1 > 1) {
+                    currentNode = currentNode.next;
+                    length_1 = length_1 - 1;
+                }
+                else {
+                    return false;
+                }
+            }
+            return true;
+        }
     };
     return DoubleLinkList;
 }());
