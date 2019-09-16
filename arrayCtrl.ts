@@ -287,8 +287,8 @@ interface doubleLink {
  * 3、头部删除节点(弹出头部节点)
  * 4、尾部删除节点(弹出尾部节点)
  * 5、判断节点是否在链表中
- * 6、删除指定位置的节点
- * 7、在指定位置增加节点
+ * 6、删除指定的节点
+ * 7、在指定节点的前或后增加节点
  * 8、获取链表的节点个数
  */
 class DoubleLinkList implements doubleLink {
@@ -387,12 +387,10 @@ class DoubleLinkList implements doubleLink {
     }
     //判断节点是否在链表中
     getNode(val:node){
-        let judgeResult = null;
         let currentNode:node = this.head;
         if(this.size === 0 ){
             return false
-        }
-        if(this.size !== 0){
+        }else{
             let length:number = this.size;
             while(currentNode != val){
                 if(length > 1){
@@ -403,6 +401,33 @@ class DoubleLinkList implements doubleLink {
                 }
             }
             return true
+        }
+    }
+
+    //删除指定的节点
+    removeNode(val:node){
+        let judgeNode:boolean = this.getNode(val);
+        if(judgeNode===false){
+            console.error('No This Node In DoubleLinkList!');
+            return 
+        }
+        if(this.size===1){
+            if(this.head === val){
+                this.head = null;
+            }
+            if(this.tail === val){
+                this.tail = null
+            }
+            this.size = 0
+        }else{
+            let currentNode = this.head;
+            while(currentNode != val){
+                currentNode = currentNode.next
+            };
+            let preNode:node = currentNode.pre;
+            let nextNode:node = currentNode.next;
+            preNode.next = nextNode;
+            nextNode.pre = preNode
         }
     }
 

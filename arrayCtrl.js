@@ -200,8 +200,8 @@ var Node = /** @class */ (function () {
  * 3、头部删除节点(弹出头部节点)
  * 4、尾部删除节点(弹出尾部节点)
  * 5、判断节点是否在链表中
- * 6、删除指定位置的节点
- * 7、在指定位置增加节点
+ * 6、删除指定的节点
+ * 7、在指定节点的前或后增加节点
  * 8、获取链表的节点个数
  */
 var DoubleLinkList = /** @class */ (function () {
@@ -301,12 +301,11 @@ var DoubleLinkList = /** @class */ (function () {
     };
     //判断节点是否在链表中
     DoubleLinkList.prototype.getNode = function (val) {
-        var judgeResult = null;
         var currentNode = this.head;
         if (this.size === 0) {
             return false;
         }
-        if (this.size !== 0) {
+        else {
             var length_1 = this.size;
             while (currentNode != val) {
                 if (length_1 > 1) {
@@ -318,6 +317,34 @@ var DoubleLinkList = /** @class */ (function () {
                 }
             }
             return true;
+        }
+    };
+    //删除指定的节点
+    DoubleLinkList.prototype.removeNode = function (val) {
+        var judgeNode = this.getNode(val);
+        if (judgeNode === false) {
+            console.error('No This Node In DoubleLinkList!');
+            return;
+        }
+        if (this.size === 1) {
+            if (this.head === val) {
+                this.head = null;
+            }
+            if (this.tail === val) {
+                this.tail = null;
+            }
+            this.size = 0;
+        }
+        else {
+            var currentNode = this.head;
+            while (currentNode != val) {
+                currentNode = currentNode.next;
+            }
+            ;
+            var preNode = currentNode.pre;
+            var nextNode = currentNode.next;
+            preNode.next = nextNode;
+            nextNode.pre = preNode;
         }
     };
     return DoubleLinkList;
