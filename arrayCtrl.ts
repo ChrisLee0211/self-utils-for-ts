@@ -431,4 +431,35 @@ class DoubleLinkList implements doubleLink {
         }
     }
 
+    /**
+     * 
+     * @param val 要插入的节点
+     * @param ele 被插入的节点
+     * @param type 插入的位置：next or pre
+     */
+    insertNode(val:node,ele:node,type:string){
+        if(type==='next'){
+            let nextNode:node = ele.next;
+            let nextNextNode:node = nextNode.next;
+            val.pre = nextNode;
+            val.next = nextNextNode;
+            nextNode.next = val;
+            nextNextNode.pre = val;
+        }
+        if(type==='pre'){
+            let preNode:node = ele.pre;
+            let prePreNode:node = preNode.pre;
+            val.pre = prePreNode;
+            val.next = preNode;
+            prePreNode.next = val;
+            preNode.pre = val
+        }
+        return val
+    }
+
+    //获取链表的节点个数
+    countNodes(){
+        return this.size
+    }
+
 }

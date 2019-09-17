@@ -347,5 +347,34 @@ var DoubleLinkList = /** @class */ (function () {
             nextNode.pre = preNode;
         }
     };
+    /**
+     *
+     * @param val 要插入的节点
+     * @param ele 被插入的节点
+     * @param type 插入的位置：next or pre
+     */
+    DoubleLinkList.prototype.insertNode = function (val, ele, type) {
+        if (type === 'next') {
+            var nextNode = ele.next;
+            var nextNextNode = nextNode.next;
+            val.pre = nextNode;
+            val.next = nextNextNode;
+            nextNode.next = val;
+            nextNextNode.pre = val;
+        }
+        if (type === 'pre') {
+            var preNode = ele.pre;
+            var prePreNode = preNode.pre;
+            val.pre = prePreNode;
+            val.next = preNode;
+            prePreNode.next = val;
+            preNode.pre = val;
+        }
+        return val;
+    };
+    //获取链表的节点个数
+    DoubleLinkList.prototype.countNodes = function () {
+        return this.size;
+    };
     return DoubleLinkList;
 }());
