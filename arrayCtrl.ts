@@ -290,6 +290,7 @@ interface doubleLink {
  * 6、删除指定的节点
  * 7、在指定节点的前或后增加节点
  * 8、获取链表的节点个数
+ * 9、打印所有节点
  */
 class DoubleLinkList implements doubleLink {
     head:any
@@ -386,15 +387,19 @@ class DoubleLinkList implements doubleLink {
         }
     }
     //判断节点是否在链表中
-    getNode(val:node){
+    getNode(val:any){
+        let _node:node = new Node(val)
         let currentNode:node = this.head;
         if(this.size === 0 ){
             return false
         }else{
             let length:number = this.size;
-            while(currentNode != val){
+            let c = JSON.stringify(currentNode.target);
+            let n = JSON.stringify(_node.target);
+            while(c != n){
                 if(length > 1){
                     currentNode = currentNode.next;
+                    c = JSON.stringify(currentNode.target);
                     length = length - 1
                 }else{
                     return false
@@ -405,29 +410,41 @@ class DoubleLinkList implements doubleLink {
     }
 
     //删除指定的节点
-    removeNode(val:node){
+    removeNode(val:any){
+        let _node:node = new Node(val)
         let judgeNode:boolean = this.getNode(val);
         if(judgeNode===false){
             console.error('No This Node In DoubleLinkList!');
             return 
         }
         if(this.size===1){
-            if(this.head === val){
+            if(this.head.target === _node.target){
                 this.head = null;
             }
-            if(this.tail === val){
+            if(this.tail.target === _node.target){
                 this.tail = null
             }
             this.size = 0
         }else{
             let currentNode = this.head;
-            while(currentNode != val){
-                currentNode = currentNode.next
+            let c = JSON.stringify(currentNode.target)
+            let n = JSON.stringify(_node.target)
+            while(c!=n){
+                currentNode = currentNode.next;
+                c = JSON.stringify(currentNode.target)
             };
-            let preNode:node = currentNode.pre;
-            let nextNode:node = currentNode.next;
-            preNode.next = nextNode;
-            nextNode.pre = preNode
+            let preNode:node = currentNode.pre===null?null:currentNode.pre;
+            let nextNode:node = currentNode.next===null?null:currentNode.next;
+            if(preNode === null){
+                this.deleteOnHead()
+            }
+            if(nextNode === null){
+                this.deleteOnTail()
+            }
+            if(preNode!==null&&nextNode!==null){
+                preNode.next = nextNode;
+                nextNode.pre = preNode
+            }
         }
     }
 
@@ -437,24 +454,35 @@ class DoubleLinkList implements doubleLink {
      * @param ele 被插入的节点
      * @param type 插入的位置：next or pre
      */
-    insertNode(val:node,ele:node,type:string){
+    insertNode(val:any,ele:any,type:string){
+        if(!this.getNode(ele)){
+            console.error(`Can Not Find Node ${ele}`);
+            return
+        }
+        let _node:node = new Node(val);
+        let _ele:node;
+        let currentNode:node = this.head;
+        while(currentNode.target !== ele.target){
+            currentNode = currentNode.next
+        }
+        _ele = currentNode;
         if(type==='next'){
             let nextNode:node = ele.next;
             let nextNextNode:node = nextNode.next;
-            val.pre = nextNode;
-            val.next = nextNextNode;
-            nextNode.next = val;
-            nextNextNode.pre = val;
+            _node.pre = nextNode;
+            _node.next = nextNextNode;
+            nextNode.next = _node;
+            nextNextNode.pre = _node;
         }
         if(type==='pre'){
             let preNode:node = ele.pre;
             let prePreNode:node = preNode.pre;
-            val.pre = prePreNode;
-            val.next = preNode;
-            prePreNode.next = val;
-            preNode.pre = val
+            _node.pre = prePreNode;
+            _node.next = preNode;
+            prePreNode.next = _node;
+            preNode.pre = _node
         }
-        return val
+        return _node
     }
 
     //获取链表的节点个数
@@ -462,4 +490,16 @@ class DoubleLinkList implements doubleLink {
         return this.size
     }
 
+    //打印所有节点
+    getAllNode(){
+        let str:string = '';
+        let currentNode:node = this.head;
+        if(currentNode === null) return
+        while(currentNode.next!==null){
+            str = str + JSON.stringify(currentNode.target);
+            currentNode = currentNode.next
+        }
+        str = str + JSON.stringify(this.tail.target)
+        console.log(str)
+    }
 }
