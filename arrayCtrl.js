@@ -376,14 +376,21 @@ var DoubleLinkList = /** @class */ (function () {
             return;
         }
         var _node = new Node(val);
-        var _ele;
+        var _ele = new Node(ele);
         var currentNode = this.head;
-        while (currentNode.target !== ele.target) {
+        var c = JSON.stringify(currentNode.target);
+        var e = JSON.stringify(_ele.target);
+        while (c !== e) {
             currentNode = currentNode.next;
+            c = JSON.stringify(currentNode.target);
         }
         _ele = currentNode;
         if (type === 'next') {
-            var nextNode = ele.next;
+            if (_ele.next === null) {
+                this.addOnTail(_node.target);
+                return;
+            }
+            var nextNode = _ele.next;
             var nextNextNode = nextNode.next;
             _node.pre = nextNode;
             _node.next = nextNextNode;
@@ -391,7 +398,11 @@ var DoubleLinkList = /** @class */ (function () {
             nextNextNode.pre = _node;
         }
         if (type === 'pre') {
-            var preNode = ele.pre;
+            if (_ele.pre === null) {
+                this.addOnHead(_node.target);
+                return;
+            }
+            var preNode = _ele.pre;
             var prePreNode = preNode.pre;
             _node.pre = prePreNode;
             _node.next = preNode;

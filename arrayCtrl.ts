@@ -394,8 +394,8 @@ class DoubleLinkList implements doubleLink {
             return false
         }else{
             let length:number = this.size;
-            let c = JSON.stringify(currentNode.target);
-            let n = JSON.stringify(_node.target);
+            let c:string = JSON.stringify(currentNode.target);
+            let n:string = JSON.stringify(_node.target);
             while(c != n){
                 if(length > 1){
                     currentNode = currentNode.next;
@@ -427,8 +427,8 @@ class DoubleLinkList implements doubleLink {
             this.size = 0
         }else{
             let currentNode = this.head;
-            let c = JSON.stringify(currentNode.target)
-            let n = JSON.stringify(_node.target)
+            let c:string = JSON.stringify(currentNode.target)
+            let n:string = JSON.stringify(_node.target)
             while(c!=n){
                 currentNode = currentNode.next;
                 c = JSON.stringify(currentNode.target)
@@ -460,14 +460,21 @@ class DoubleLinkList implements doubleLink {
             return
         }
         let _node:node = new Node(val);
-        let _ele:node;
+        let _ele:node = new Node(ele);
         let currentNode:node = this.head;
-        while(currentNode.target !== ele.target){
-            currentNode = currentNode.next
+        let c:string = JSON.stringify(currentNode.target);
+        let e:string = JSON.stringify(_ele.target);
+        while(c!== e){
+            currentNode = currentNode.next;
+            c = JSON.stringify(currentNode.target)
         }
         _ele = currentNode;
         if(type==='next'){
-            let nextNode:node = ele.next;
+            if(_ele.next === null){
+                this.addOnTail(_node.target);
+                return
+            }
+            let nextNode:node = _ele.next;
             let nextNextNode:node = nextNode.next;
             _node.pre = nextNode;
             _node.next = nextNextNode;
@@ -475,7 +482,11 @@ class DoubleLinkList implements doubleLink {
             nextNextNode.pre = _node;
         }
         if(type==='pre'){
-            let preNode:node = ele.pre;
+            if(_ele.pre === null){
+                this.addOnHead(_node.target);
+                return
+            }
+            let preNode:node = _ele.pre;
             let prePreNode:node = preNode.pre;
             _node.pre = prePreNode;
             _node.next = preNode;
