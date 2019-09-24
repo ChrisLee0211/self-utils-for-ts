@@ -9,6 +9,9 @@
 * [4.拼接新对象](#拼接新对象)
 * [5.数组的差集](#数组的差集)
 
+### 二、数据结构相关工具方法：
+* [1.双向链表](#双向链表)
+
 
 
 ### 数组元素位置升降
@@ -209,3 +212,52 @@ hasArray函数接受两个参数，第一个为要判断的数组，第二个为
 
 ----
 
+### 双向链表
+> 用于建立双向链表，提供了头、尾部增加节点，头、尾部删除节点，在指定位置插入节点等方法
+- 用法：
+```javascript
+import DoubleLinkList from "./arrayCtrl.js"
+
+let doubleLink = new DoubleLinkList()
+doubleLink.addOnHead({a:1}) //向链表头部添加{a:1}节点
+doubleLink.getAllNode() //打印所有节点
+doubleLink.addOnHead({b:2}) //向头部继续添加{b:2}节点
+doubleLink.addOnTail({c:3}) //向尾部添加{c:3}节点
+doubleLink.getAllNode() //打印所有节点
+doubleLink.deleteOnHead() //删除头部节点
+doubleLink.getAllNode() //打印所有节点
+doubleLink.addOnHead({b:2})
+doubleLink.getAllNode() //打印所有节点
+doubleLink.deleteOnTail() //删除尾部节点
+doubleLink.getAllNode() //打印所有节点
+doubleLink.getNode({b:2}) //判断是否存在该节点
+doubleLink.removeNode({b:2}) //删除指定节点
+doubleLink.getAllNode()
+doubleLink.insertNode({d:4},{a:1},'next') //把{d:4}节点添加到{c:3}节点末尾
+doubleLink.getAllNode()
+
+//打印结果
+//{"a":1}
+//{"b":2}{"a":1}{"c":3}
+//{"a":1}{"c":3}
+//{"b":2}{"a":1}{"c":3}
+//{"b":2}{"a":1}
+//{"a":1}
+//{"a":1}{"d":4}
+```
+- 说明:  
+创建DoubleLinkList实例后，提供如下方法：
+
+|方法名|接收参数|作用/返回|
+|---|---|---|
+|addOnHead|任意对象节点|向头部添加节点，无返回|
+|addOnTail|任意对象节点|向尾部添加节点，无返回|
+|deleteOnHead|无|返回被删除的头部节点|
+|deleteOnTail|无|返回被删除的尾部节点|
+|getNode|任意对象节点|布尔值|
+|removeNode|指定的对象节点|删除指定的节点，无返回|
+|insertNode|1:插入的节点，2：被插入的节点，3：指针位置('next'/'pre')|无|
+|getAllNode|无|无，打印所有节点的内容|
+|countNode|无|返回当前链表节点数量|
+
+### 备注：每个返回的链表节点都具有`next`和`pre`指针，同时doubleLinkList实例具有`head`和`tail`属性，可供调用查看当前链表中的头部和尾部。
