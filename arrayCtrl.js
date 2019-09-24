@@ -192,6 +192,7 @@ var Node = /** @class */ (function () {
     };
     return Node;
 }());
+export { Node };
 /**
  * 双向链表
  * 功能：
@@ -430,3 +431,4 @@ var DoubleLinkList = /** @class */ (function () {
     };
     return DoubleLinkList;
 }());
+export { DoubleLinkList };

@@ -253,7 +253,8 @@ interface node {
     pre:any,
     next:any
 }
-class Node implements node {
+
+export class Node implements node {
     target:any
     pre:any = null
     next:any = null
@@ -292,7 +293,7 @@ interface doubleLink {
  * 8、获取链表的节点个数
  * 9、打印所有节点
  */
-class DoubleLinkList implements doubleLink {
+export class DoubleLinkList implements doubleLink {
     head:any
     tail:any
     size:number = 0
