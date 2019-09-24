@@ -308,12 +308,13 @@ export class DoubleLinkList implements doubleLink {
         if(this.size === 0){
             this.head = _node;
             this.tail = _node;
+            _node.pre = null;
+            _node.next = null;
             this.size += 1
         }else{
             let old_head:node = this.head;
             this.head = _node;
-            this.tail = old_head;
-            _node.next = this.tail;
+            _node.next = old_head
             old_head.pre = _node;
             this.size += 1
         }
@@ -324,6 +325,8 @@ export class DoubleLinkList implements doubleLink {
         if(this.size === 0 ){
             this.head = _node;
             this.tail = _node;
+            _node.pre = null;
+            _node.next = null;
             this.size += 1
         }else{
             let old_tail:node = this.tail;
@@ -351,7 +354,9 @@ export class DoubleLinkList implements doubleLink {
             let new_head:node = old_head.next;
             if(this.size === 2){
                 this.size = 0;
-                this.addOnHead(new_head)
+                this.head = null;
+                this.tail = null;
+                this.addOnHead(new_head.target)
             }else{
                 this.head = new_head;
                 new_head.pre = null;
@@ -378,7 +383,9 @@ export class DoubleLinkList implements doubleLink {
             let new_tail:node = old_tail.pre;
             if(this.size === 2){
                 this.size = 0;
-                this.addOnTail(new_tail);
+                this.head = null;
+                this.tail = null;
+                this.addOnTail(new_tail.target);
             }else{
                 this.tail = new_tail;
                 new_tail.next = null;
@@ -419,10 +426,12 @@ export class DoubleLinkList implements doubleLink {
             return 
         }
         if(this.size===1){
-            if(this.head.target === _node.target){
+            let h:string = JSON.stringify(this.head.target);
+            let n:string = JSON.stringify(_node.target)
+            if(h === n){
                 this.head = null;
             }
-            if(this.tail.target === _node.target){
+            if(h === n){
                 this.tail = null
             }
             this.size = 0
@@ -456,15 +465,15 @@ export class DoubleLinkList implements doubleLink {
      * @param type 插入的位置：next or pre
      */
     insertNode(val:any,ele:any,type:string){
-        if(!this.getNode(ele)){
-            console.error(`Can Not Find Node ${ele}`);
-            return
-        }
-        let _node:node = new Node(val);
         let _ele:node = new Node(ele);
+        let _node:node = new Node(val);
         let currentNode:node = this.head;
         let c:string = JSON.stringify(currentNode.target);
         let e:string = JSON.stringify(_ele.target);
+        if(!this.getNode(ele)){
+            console.error(`Can Not Find Node ${e}`);
+            return
+        }
         while(c!== e){
             currentNode = currentNode.next;
             c = JSON.stringify(currentNode.target)

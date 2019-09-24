@@ -218,13 +218,14 @@ var DoubleLinkList = /** @class */ (function () {
         if (this.size === 0) {
             this.head = _node;
             this.tail = _node;
+            _node.pre = null;
+            _node.next = null;
             this.size += 1;
         }
         else {
             var old_head = this.head;
             this.head = _node;
-            this.tail = old_head;
-            _node.next = this.tail;
+            _node.next = old_head;
             old_head.pre = _node;
             this.size += 1;
         }
@@ -235,6 +236,8 @@ var DoubleLinkList = /** @class */ (function () {
         if (this.size === 0) {
             this.head = _node;
             this.tail = _node;
+            _node.pre = null;
+            _node.next = null;
             this.size += 1;
         }
         else {
@@ -263,7 +266,9 @@ var DoubleLinkList = /** @class */ (function () {
             var new_head = old_head.next;
             if (this.size === 2) {
                 this.size = 0;
-                this.addOnHead(new_head);
+                this.head = null;
+                this.tail = null;
+                this.addOnHead(new_head.target);
             }
             else {
                 this.head = new_head;
@@ -291,7 +296,9 @@ var DoubleLinkList = /** @class */ (function () {
             var new_tail = old_tail.pre;
             if (this.size === 2) {
                 this.size = 0;
-                this.addOnTail(new_tail);
+                this.head = null;
+                this.tail = null;
+                this.addOnTail(new_tail.target);
             }
             else {
                 this.tail = new_tail;
@@ -334,10 +341,12 @@ var DoubleLinkList = /** @class */ (function () {
             return;
         }
         if (this.size === 1) {
-            if (this.head.target === _node.target) {
+            var h = JSON.stringify(this.head.target);
+            var n = JSON.stringify(_node.target);
+            if (h === n) {
                 this.head = null;
             }
-            if (this.tail.target === _node.target) {
+            if (h === n) {
                 this.tail = null;
             }
             this.size = 0;
@@ -372,15 +381,15 @@ var DoubleLinkList = /** @class */ (function () {
      * @param type 插入的位置：next or pre
      */
     DoubleLinkList.prototype.insertNode = function (val, ele, type) {
-        if (!this.getNode(ele)) {
-            console.error("Can Not Find Node " + ele);
-            return;
-        }
-        var _node = new Node(val);
         var _ele = new Node(ele);
+        var _node = new Node(val);
         var currentNode = this.head;
         var c = JSON.stringify(currentNode.target);
         var e = JSON.stringify(_ele.target);
+        if (!this.getNode(ele)) {
+            console.error("Can Not Find Node " + e);
+            return;
+        }
         while (c !== e) {
             currentNode = currentNode.next;
             c = JSON.stringify(currentNode.target);
