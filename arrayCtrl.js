@@ -1,6 +1,6 @@
 var ArrayCtrl = /** @class */ (function () {
     function ArrayCtrl(arr) {
-        this.arr = arr;
+        this.arr = arr.slice();
     }
     ArrayCtrl.prototype.sortUp = function (x) {
         var _a;

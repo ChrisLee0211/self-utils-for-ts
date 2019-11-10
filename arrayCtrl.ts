@@ -22,7 +22,7 @@ interface Params_arryCtrl {
 export class ArrayCtrl implements Params_arryCtrl {
     arr: Array<any>;
     constructor(arr: Array<any>) {
-        this.arr = arr
+        this.arr = [...arr]
     }
     sortUp(x: any): Array<any> {
         if (this.arr.includes(x)) {
