@@ -14,7 +14,6 @@
 */
 interface Params_arryCtrl {
     arr: Array<any>,
-    // func(a:any,b:any,arr):Array<any>,
     sortUp(x: any): Array<any>,
     sortDown(x: any): Array<any>
 }
@@ -240,6 +239,27 @@ export const differArray = function(arr1:Array<any>,arr2:Array<any>):Array<any>{
 export const countDown = function(val:number,func:Function,delay?:number):any{
     return (val>0)?setTimeout(()=>countDown(val-1,func),delay):func()
 }
+
+/**
+ * 功能：判断某个对象是否在数组中，并返回该对象在数组中的索引
+ * 参数：
+ * @param {object} obj:要判断的对象
+ * @param {Array} arr:作为判断的数组
+ * @returns {number} 该对象在数组中的索引  -1 =》 该对象不在数组中
+ */
+export const objectCheck = (obj:any,arr:Array<any>):number => {
+    let index:number = -1;
+    if(arr instanceof Array){
+        if(arr.length<0){return -1}
+        arr.forEach(record => {
+
+        })
+    }else{
+        return -1
+    }
+    return index
+}
+
 
 /**
  * 类名称：节点生成器

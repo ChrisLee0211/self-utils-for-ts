@@ -180,6 +180,27 @@ export var differArray = function (arr1, arr2) {
 export var countDown = function (val, func, delay) {
     return (val > 0) ? setTimeout(function () { return countDown(val - 1, func); }, delay) : func();
 };
+/**
+ * 功能：判断某个对象是否在数组中，并返回该对象在数组中的索引
+ * 参数：
+ * @param {object} obj:要判断的对象
+ * @param {Array} arr:作为判断的数组
+ * @returns {number} 该对象在数组中的索引  -1 =》 该对象不在数组中
+ */
+export var objectCheck = function (obj, arr) {
+    var index = -1;
+    if (arr instanceof Array) {
+        if (arr.length < 0) {
+            return -1;
+        }
+        arr.forEach(function (record) {
+        });
+    }
+    else {
+        return -1;
+    }
+    return index;
+};
 var Node = /** @class */ (function () {
     function Node(obj) {
         this.pre = null;
