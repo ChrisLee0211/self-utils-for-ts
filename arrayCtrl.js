@@ -189,17 +189,55 @@ export var countDown = function (val, func, delay) {
  */
 export var objectCheck = function (obj, arr) {
     var index = -1;
+    var indexArr = [];
     if (arr instanceof Array) {
         if (arr.length < 0) {
             return -1;
         }
-        arr.forEach(function (record) {
+        arr.forEach(function (record, idx) {
+            if (objectEqual(record, obj) === true) {
+                indexArr.push(idx);
+            }
         });
+        return indexArr[0];
     }
     else {
         return -1;
     }
     return index;
+};
+/**
+ * 功能：判断对象相等
+ * 参数：
+ * @param {object} x:对象1
+ * @param {object} y:对象2
+ * @returns {boolean}
+ */
+export var objectEqual = function (x, y) {
+    var f1 = x instanceof Object;
+    var f2 = y instanceof Object;
+    if (!f1 || !f2) {
+        return x === y;
+    }
+    if (Object.keys(x).length !== Object.keys(y).length) {
+        return false;
+    }
+    var newX = Object.keys(x);
+    for (var p in newX) {
+        p = newX[p];
+        var a = x[p] instanceof Object;
+        var b = y[p] instanceof Object;
+        if (a && b) {
+            var equal = objectEqual(x[p], y[p]);
+            if (!equal) {
+                return equal;
+            }
+        }
+        else if (x[p] != y[p]) {
+            return false;
+        }
+    }
+    return true;
 };
 var Node = /** @class */ (function () {
     function Node(obj) {
