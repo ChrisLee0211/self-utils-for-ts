@@ -18,32 +18,24 @@ interface Params_arryCtrl {
     sortDown(x: any): Array<any>
 }
 
-export class ArrayCtrl implements Params_arryCtrl {
+class ArrayCtrl implements Params_arryCtrl {
     arr: Array<any>;
     constructor(arr: Array<any>) {
-        this.arr = [...arr]
+        this.arr = [...arr];
+        return this
     }
     sortUp(x: any): Array<any> {
-        if (this.arr.includes(x)) {
-            let target = this.arr.findIndex((value, index, arr) => {
-                return value === x
-            })
-            if (target <= 0) {
-                return this.arr
-            } else {
+        if (objectCheck(x,this.arr)!==-1) {
+            let target = objectCheck(x,this.arr);
                 [this.arr[target - 1], this.arr[target]] = [this.arr[target], this.arr[target - 1]]
                 return this.arr
-            }
-
         } else {
             return this.arr
         }
     }
     sortDown(x: any): Array<any> {
-        if (this.arr.includes(x)) {
-            let target = this.arr.findIndex((value, index, arr) => {
-                return value === x
-            })
+        if (objectCheck(x,this.arr)!==-1) {
+            let target = objectCheck(x,this.arr);
             let len = this.arr.length
             if (target >= len - 1) {
                 return this.arr
@@ -247,7 +239,7 @@ export const countDown = function (val: number, func: Function, delay?: number):
  * @param {Array} arr:作为判断的数组
  * @returns {number} 该对象在数组中的索引  -1 =》 该对象不在数组中
  */
-export const objectCheck = (obj: any, arr: Array<any>): number => {
+const objectCheck = (obj: any, arr: Array<any>): number => {
     let index: number = -1;
     let indexArr:Array<number> = [];
     if (arr instanceof Array) {
@@ -257,6 +249,9 @@ export const objectCheck = (obj: any, arr: Array<any>): number => {
                 indexArr.push(idx)
             }
         })
+        if(indexArr.length<1){
+            return -1
+        }
         return indexArr[0]
     } else {
         return -1
@@ -273,7 +268,7 @@ export const objectCheck = (obj: any, arr: Array<any>): number => {
  * @param {object} y:对象2
  * @returns {boolean}
  */
-export const objectEqual = (x: any, y: any): boolean => {
+const objectEqual = (x: any, y: any): boolean => {
     let f1: boolean = x instanceof Object;
     let f2: boolean = y instanceof Object;
     if (!f1 || !f2) {

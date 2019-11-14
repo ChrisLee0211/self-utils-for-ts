@@ -1,20 +1,14 @@
 var ArrayCtrl = /** @class */ (function () {
     function ArrayCtrl(arr) {
         this.arr = arr.slice();
+        return this;
     }
     ArrayCtrl.prototype.sortUp = function (x) {
         var _a;
-        if (this.arr.includes(x)) {
-            var target = this.arr.findIndex(function (value, index, arr) {
-                return value === x;
-            });
-            if (target <= 0) {
-                return this.arr;
-            }
-            else {
-                _a = [this.arr[target], this.arr[target - 1]], this.arr[target - 1] = _a[0], this.arr[target] = _a[1];
-                return this.arr;
-            }
+        if (objectCheck(x, this.arr) !== -1) {
+            var target = objectCheck(x, this.arr);
+            _a = [this.arr[target], this.arr[target - 1]], this.arr[target - 1] = _a[0], this.arr[target] = _a[1];
+            return this.arr;
         }
         else {
             return this.arr;
@@ -22,10 +16,8 @@ var ArrayCtrl = /** @class */ (function () {
     };
     ArrayCtrl.prototype.sortDown = function (x) {
         var _a;
-        if (this.arr.includes(x)) {
-            var target = this.arr.findIndex(function (value, index, arr) {
-                return value === x;
-            });
+        if (objectCheck(x, this.arr) !== -1) {
+            var target = objectCheck(x, this.arr);
             var len = this.arr.length;
             if (target >= len - 1) {
                 return this.arr;
@@ -41,7 +33,6 @@ var ArrayCtrl = /** @class */ (function () {
     };
     return ArrayCtrl;
 }());
-export { ArrayCtrl };
 var statusSwitch = /** @class */ (function () {
     function statusSwitch(value_set) {
         this.switch_key = [];
@@ -187,7 +178,7 @@ export var countDown = function (val, func, delay) {
  * @param {Array} arr:作为判断的数组
  * @returns {number} 该对象在数组中的索引  -1 =》 该对象不在数组中
  */
-export var objectCheck = function (obj, arr) {
+var objectCheck = function (obj, arr) {
     var index = -1;
     var indexArr = [];
     if (arr instanceof Array) {
@@ -199,6 +190,9 @@ export var objectCheck = function (obj, arr) {
                 indexArr.push(idx);
             }
         });
+        if (indexArr.length < 1) {
+            return -1;
+        }
         return indexArr[0];
     }
     else {
@@ -213,7 +207,7 @@ export var objectCheck = function (obj, arr) {
  * @param {object} y:对象2
  * @returns {boolean}
  */
-export var objectEqual = function (x, y) {
+var objectEqual = function (x, y) {
     var f1 = x instanceof Object;
     var f2 = y instanceof Object;
     if (!f1 || !f2) {
