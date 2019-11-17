@@ -33,6 +33,7 @@ var ArrayCtrl = /** @class */ (function () {
     };
     return ArrayCtrl;
 }());
+export { ArrayCtrl };
 var statusSwitch = /** @class */ (function () {
     function statusSwitch(value_set) {
         this.switch_key = [];
@@ -178,7 +179,7 @@ export var countDown = function (val, func, delay) {
  * @param {Array} arr:作为判断的数组
  * @returns {number} 该对象在数组中的索引  -1 =》 该对象不在数组中
  */
-var objectCheck = function (obj, arr) {
+export var objectCheck = function (obj, arr) {
     var index = -1;
     var indexArr = [];
     if (arr instanceof Array) {
@@ -207,7 +208,7 @@ var objectCheck = function (obj, arr) {
  * @param {object} y:对象2
  * @returns {boolean}
  */
-var objectEqual = function (x, y) {
+export var objectEqual = function (x, y) {
     var f1 = x instanceof Object;
     var f2 = y instanceof Object;
     if (!f1 || !f2) {

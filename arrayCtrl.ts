@@ -18,7 +18,7 @@ interface Params_arryCtrl {
     sortDown(x: any): Array<any>
 }
 
-class ArrayCtrl implements Params_arryCtrl {
+export class ArrayCtrl implements Params_arryCtrl {
     arr: Array<any>;
     constructor(arr: Array<any>) {
         this.arr = [...arr];
@@ -239,7 +239,7 @@ export const countDown = function (val: number, func: Function, delay?: number):
  * @param {Array} arr:作为判断的数组
  * @returns {number} 该对象在数组中的索引  -1 =》 该对象不在数组中
  */
-const objectCheck = (obj: any, arr: Array<any>): number => {
+export const objectCheck = (obj: any, arr: Array<any>): number => {
     let index: number = -1;
     let indexArr:Array<number> = [];
     if (arr instanceof Array) {
@@ -268,7 +268,7 @@ const objectCheck = (obj: any, arr: Array<any>): number => {
  * @param {object} y:对象2
  * @returns {boolean}
  */
-const objectEqual = (x: any, y: any): boolean => {
+export const objectEqual = (x: any, y: any): boolean => {
     let f1: boolean = x instanceof Object;
     let f2: boolean = y instanceof Object;
     if (!f1 || !f2) {
@@ -292,6 +292,7 @@ const objectEqual = (x: any, y: any): boolean => {
         }
     }
     return true;
+    
 }
 
 
