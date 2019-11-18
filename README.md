@@ -8,6 +8,7 @@
 * [3.判断数组内是否嵌套数组](#判断数组内是否嵌套数组)
 * [4.拼接新对象](#拼接新对象)
 * [5.数组的差集](#数组的差集)
+* [6.查找对象在数组中的位置](#查找对象在数组中的位置)
 
 ### 二、数据结构相关工具方法：
 * [1.双向链表](#双向链表)
@@ -208,6 +209,45 @@ hasArray函数接受两个参数，第一个为要判断的数组，第二个为
 |方法名|接收参数|返回结果|
 |---|---|---|
 |differArray|param_1(Array):作为对比基准的数组<br>param_2(Array):用于作为对照的数组|只存在param_1而不存在param_2的元素所组成的数组|
+
+
+----
+
+### 查找对象在数组中的位置
+> 查找一个对象是否在数组中，并返回对应的索引
+- 用法：
+```javascript
+  //导入arrayCtrl.js文件
+  import {objectCheck } from "./arrayCtrl.js"
+  
+  let arr = [
+      {id:1,type:'apple',isFruit:true},
+      {id:4,type:'banana',isFruit:false},
+      {id:3,type:'peer',isFruit:true}
+   ]
+   let obj = {id:4,type:'banana',isFruit:false};
+   let obj2 = {id:5,type:'durian',isFruit:false};
+
+     //假设我们要查找obj在arr中的索引
+   result = objectCheck(obj,arr)
+   console.log(result)
+        //打印结果是:
+        //1(即obj确实在arr中，并且对应的索引为1)
+
+    //假设我们要查找一个不存在arr中的对象obj2
+    result2 = objecrCheck(obj2,arr)
+    console.log(result2)
+    //打印结果是：
+    //-1 （即obj2不在arr中）
+```
+
+- 说明:  
+将要判断的对象作为首参数，用作判断参照的数组作为第二参数传入`objectCheck()`中：
+
+|方法名|接收参数|返回结果|
+|---|---|---|
+|objectCheck|param_1(Object):要查找的对象<br>param_2(Array):用作查找的数组|若对象存在，则返回索引，否则返回-1|
+
 
 
 ----
