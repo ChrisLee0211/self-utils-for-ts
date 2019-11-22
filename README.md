@@ -9,6 +9,7 @@
 * [4.拼接新对象](#拼接新对象)
 * [5.数组的差集](#数组的差集)
 * [6.查找对象在数组中的位置](#查找对象在数组中的位置)
+* [7.对象比较](#对象比较)
 
 ### 二、数据结构相关工具方法：
 * [1.双向链表](#双向链表)
@@ -247,6 +248,38 @@ hasArray函数接受两个参数，第一个为要判断的数组，第二个为
 |方法名|接收参数|返回结果|
 |---|---|---|
 |objectCheck|param_1(Object):要查找的对象<br>param_2(Array):用作查找的数组|若对象存在，则返回索引，否则返回-1|
+
+
+
+----
+### 对象比较
+> 对比两个对象的key和value是否相等（非内存地址比较）
+- 用法：
+```javascript
+  //导入arrayCtrl.js文件
+  import { objectEqual } from "./arrayCtrl.js"
+  
+  let obj1 = {name:'a',len:5,test:test(){return false}};
+  let obj2 = {name:'b',check:false}
+  let obj3 = {name:'a',len:5,test:test(){return false}};
+
+  let result1 = objectEqual(obj1,obj2);
+  console.log(result1)
+  //打印结果:
+  //false
+  let result2 = objectEqual(obj1,obj3;
+  console.log(result2)
+  //打印结果:
+  //true
+  
+```
+
+- 说明:  
+将要判断的两个对象作为参数传入`objectEqual()`中：
+
+|方法名|接收参数|返回结果|
+|---|---|---|
+|objectEqual|param_1(Object):比较的对象<br>param_2(Object):比较的对象|若相等则返回true，否则返回false|
 
 
 
