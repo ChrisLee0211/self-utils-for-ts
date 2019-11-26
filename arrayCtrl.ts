@@ -579,3 +579,12 @@ export class DoubleLinkList implements doubleLink {
         console.log(str)
     }
 }
+
+/**
+ * 关于栈结构的接口
+ */
+interface stack {
+    length:number,
+    push(item:any):number,
+    pop():any
+}
