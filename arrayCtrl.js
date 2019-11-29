@@ -495,3 +495,35 @@ var DoubleLinkList = /** @class */ (function () {
     return DoubleLinkList;
 }());
 export { DoubleLinkList };
+var Stack = /** @class */ (function () {
+    function Stack() {
+        this.length = 0;
+        this.doubleLink = new DoubleLinkList();
+    }
+    ;
+    /**
+     * 把一个元素推入栈中
+     * @param item :推入栈顶的元素
+     * @returns {number} 此时栈内元素的数量
+     */
+    Stack.prototype.push = function (item) {
+        var index = NaN;
+        return index;
+    };
+    /**
+     * 弹出栈顶的元素
+     * @param
+     * @returns {any} 被弹出的元素
+     */
+    Stack.prototype.pop = function () {
+        return;
+    };
+    /**
+     * 清空栈
+     */
+    Stack.prototype.clear = function () {
+        return;
+    };
+    return Stack;
+}());
+export { Stack };

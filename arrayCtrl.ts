@@ -327,7 +327,7 @@ export class Node implements node {
  */
 interface doubleLink {
     head: any //头部节点引用
-    tail: any //尾部节点饮用
+    tail: any //尾部节点引用
     size: number //节点的个数
     addOnHead(node: any): any
     addOnTail(node: any): any
@@ -586,5 +586,41 @@ export class DoubleLinkList implements doubleLink {
 interface stack {
     length:number,
     push(item:any):number,
-    pop():any
+    pop():any 
+    clear():void
+    doubleLink:doubleLink //双向链表，用于储存栈结构
+}
+
+export class Stack implements stack {
+    length:number = 0
+    doubleLink:doubleLink 
+    constructor(){
+        this.doubleLink = new DoubleLinkList()
+    };
+
+    /**
+     * 把一个元素推入栈中
+     * @param item :推入栈顶的元素
+     * @returns {number} 此时栈内元素的数量
+     */
+    push(item:any):number{
+        let index:number = NaN;
+        return index
+    }
+
+    /**
+     * 弹出栈顶的元素
+     * @param
+     * @returns {any} 被弹出的元素
+     */
+    pop(){
+        return
+    }
+
+    /**
+     * 清空栈
+     */
+    clear(){
+        return
+    }
 }
