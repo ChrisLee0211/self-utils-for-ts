@@ -588,14 +588,15 @@ interface stack {
     push(item:any):number,
     pop():any 
     clear():void
-    doubleLink:doubleLink //双向链表，用于储存栈结构
+    doubleLink:DoubleLinkList //双向链表，用于储存栈结构
 }
 
 export class Stack implements stack {
     length:number = 0
-    doubleLink:doubleLink 
+    doubleLink:DoubleLinkList 
     constructor(){
-        this.doubleLink = new DoubleLinkList()
+        this.doubleLink = new DoubleLinkList();
+        this.length = this.doubleLink.countNodes()
     };
 
     /**
@@ -605,6 +606,11 @@ export class Stack implements stack {
      */
     push(item:any):number{
         let index:number = NaN;
+        let currentItem:node = new Node(item);
+        let size:number = this.doubleLink.countNodes();
+        this.doubleLink.addOnHead(currentItem);
+        this.length = this.doubleLink.countNodes()
+        index = size + 1
         return index
     }
 
@@ -614,13 +620,23 @@ export class Stack implements stack {
      * @returns {any} 被弹出的元素
      */
     pop(){
-        return
+        let result:node;
+        result = this.doubleLink.head;
+        this.doubleLink.deleteOnHead();
+        this.length = this.doubleLink.countNodes()
+        return result.target
     }
 
     /**
      * 清空栈
      */
     clear(){
+        let size:number = this.doubleLink.countNodes();
+        while(size > 1){
+            this.doubleLink.deleteOnHead();
+            size = this.doubleLink.countNodes()
+        };
+        this.length = this.doubleLink.countNodes()
         return
     }
 }

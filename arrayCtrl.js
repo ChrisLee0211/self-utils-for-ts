@@ -499,6 +499,7 @@ var Stack = /** @class */ (function () {
     function Stack() {
         this.length = 0;
         this.doubleLink = new DoubleLinkList();
+        this.length = this.doubleLink.countNodes();
     }
     ;
     /**
@@ -508,6 +509,11 @@ var Stack = /** @class */ (function () {
      */
     Stack.prototype.push = function (item) {
         var index = NaN;
+        var currentItem = new Node(item);
+        var size = this.doubleLink.countNodes();
+        this.doubleLink.addOnHead(currentItem);
+        this.length = this.doubleLink.countNodes();
+        index = size + 1;
         return index;
     };
     /**
@@ -516,12 +522,23 @@ var Stack = /** @class */ (function () {
      * @returns {any} 被弹出的元素
      */
     Stack.prototype.pop = function () {
-        return;
+        var result;
+        result = this.doubleLink.head;
+        this.doubleLink.deleteOnHead();
+        this.length = this.doubleLink.countNodes();
+        return result.target;
     };
     /**
      * 清空栈
      */
     Stack.prototype.clear = function () {
+        var size = this.doubleLink.countNodes();
+        while (size > 1) {
+            this.doubleLink.deleteOnHead();
+            size = this.doubleLink.countNodes();
+        }
+        ;
+        this.length = this.doubleLink.countNodes();
         return;
     };
     return Stack;
