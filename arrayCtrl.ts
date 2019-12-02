@@ -639,4 +639,19 @@ export class Stack implements stack {
         this.length = this.doubleLink.countNodes()
         return
     }
+
+    /**
+     * 打印栈内所有元素
+     */
+    getAll():Array<string>{
+        let arr:Array<string> = [];
+        let size:number = this.doubleLink.countNodes();
+        while(size>0){
+            let str:string = String(this.doubleLink.head.target);
+            arr.push(str);
+            this.doubleLink.deleteOnHead();
+            size = this.doubleLink.countNodes();
+        }
+        return arr
+    }
 }
