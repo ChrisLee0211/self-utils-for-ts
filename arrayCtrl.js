@@ -246,7 +246,6 @@ var Node = /** @class */ (function () {
     };
     return Node;
 }());
-export { Node };
 /**
  * 双向链表
  * 功能：
@@ -494,7 +493,6 @@ var DoubleLinkList = /** @class */ (function () {
     };
     return DoubleLinkList;
 }());
-export { DoubleLinkList };
 var Stack = /** @class */ (function () {
     function Stack() {
         this.length = 0;
@@ -541,6 +539,11 @@ var Stack = /** @class */ (function () {
         this.length = this.doubleLink.countNodes();
         return;
     };
+    /**
+     * 打印栈内所有元素
+     */
+    Stack.prototype.getAll = function () {
+        this.doubleLink.getAllNode();
+    };
     return Stack;
 }());
-export { Stack };

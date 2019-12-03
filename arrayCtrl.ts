@@ -309,7 +309,7 @@ interface node {
     next: any
 }
 
-export class Node implements node {
+class Node implements node {
     target: any
     pre: any = null
     next: any = null
@@ -348,7 +348,7 @@ interface doubleLink {
  * 8、获取链表的节点个数
  * 9、打印所有节点
  */
-export class DoubleLinkList implements doubleLink {
+class DoubleLinkList implements doubleLink {
     head: any
     tail: any
     size: number = 0
@@ -591,12 +591,13 @@ interface stack {
     doubleLink:DoubleLinkList //双向链表，用于储存栈结构
 }
 
-export class Stack implements stack {
+class Stack implements stack {
     length:number = 0
     doubleLink:DoubleLinkList 
     constructor(){
         this.doubleLink = new DoubleLinkList();
-        this.length = this.doubleLink.countNodes()
+        this.length = this.doubleLink.countNodes();
+
     };
 
     /**
@@ -643,15 +644,8 @@ export class Stack implements stack {
     /**
      * 打印栈内所有元素
      */
-    getAll():Array<string>{
-        let arr:Array<string> = [];
-        let size:number = this.doubleLink.countNodes();
-        while(size>0){
-            let str:string = String(this.doubleLink.head.target);
-            arr.push(str);
-            this.doubleLink.deleteOnHead();
-            size = this.doubleLink.countNodes();
-        }
-        return arr
+    getAll():void{
+        this.doubleLink.getAllNode()
     }
+
 }
