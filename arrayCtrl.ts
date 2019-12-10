@@ -621,10 +621,11 @@ export class Stack implements stack {
      * @returns {any} 被弹出的元素
      */
     pop(){
+        if(this.length === 0) return null
         let result:node;
         result = this.doubleLink.head;
         this.doubleLink.deleteOnHead();
-        this.length = this.doubleLink.countNodes()
+        this.length = this.doubleLink.countNodes();
         return result.target
     }
 

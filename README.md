@@ -13,6 +13,7 @@
 
 ### 二、数据结构相关工具方法：
 * [1.双向链表](#双向链表)
+* [1.栈](#栈)
 
 
 
@@ -334,3 +335,37 @@ doubleLink.getAllNode()
 |countNode|无|返回当前链表节点数量|
 
 ### 备注：每个返回的链表节点都具有`next`和`pre`指针，同时doubleLinkList实例具有`head`和`tail`属性，可供调用查看当前链表中的头部和尾部。
+
+----
+
+### 栈
+> 用于创建一个栈结构(非原生js数组结构实现)，支持进栈、出栈方法，具有栈结构的的LIFO（后进先出）特性
+- 用法：
+```javascript
+import Stack from "./arrayCtrl.js"
+
+let stackArr = new Stack();
+stackArr.push({name:'aaa'}) //推入一个对象进栈
+console.log(stackArr.getAll()) //以数组形式按顺序打印栈内元素
+stackArr.push(4)  //推入一个整数进栈
+stackArr.push('bbb'); //推入一个字符串进栈
+console.log(stackArr.getAll()) 
+stackArr.pop();  //弹出栈顶的元素
+console.log(stackArr.getAll())
+
+//打印结果
+//[{name:'aaa'}]
+//['bbb',4,{name:'aaa'}]
+//[4,{name:'aaa'}]
+
+```
+- 说明:  
+创建Stack实例后，提供如下方法：
+
+|方法名|接收参数|作用/返回|
+|---|---|---|
+|push|任意内容|向栈内推入一个元素，返回该元素在栈中的元素数量|
+|pop|无|弹出栈顶的元素，若栈内为空，返回null，否则返回该元素|
+|clear|无|清空栈内所有元素|
+|getAll|无|以数组形式按顺序返回栈内所有元素|
+

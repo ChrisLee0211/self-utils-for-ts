@@ -522,6 +522,8 @@ var Stack = /** @class */ (function () {
      * @returns {any} 被弹出的元素
      */
     Stack.prototype.pop = function () {
+        if (this.length === 0)
+            return null;
         var result;
         result = this.doubleLink.head;
         this.doubleLink.deleteOnHead();
