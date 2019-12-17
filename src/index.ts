@@ -1,4 +1,4 @@
-import { ArrayCtrl, differArray, objectCheck, objectEqual, inventObject, statusSwitch, hasArray } from './ArrayObject/index'
+import { ArrayCtrl, differArray, objectCheck, objectEqual, inventObject, statusSwitch, hasArray, sortObject } from './ArrayObject/index'
 import { Node, DoubleLinkList, Stack } from './dataStructure/index'
 
 
@@ -9,6 +9,7 @@ export {
      inventObject, 
      statusSwitch, 
      hasArray, 
+     sortObject, 
      DoubleLinkList, 
      Node, 
      Stack}

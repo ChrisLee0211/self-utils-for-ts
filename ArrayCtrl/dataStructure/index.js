@@ -1,3 +1,5 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 var Node = /** @class */ (function () {
     function Node(obj) {
         this.pre = null;
@@ -10,7 +12,7 @@ var Node = /** @class */ (function () {
     };
     return Node;
 }());
-export { Node };
+exports.Node = Node;
 /**
  * 双向链表
  * 功能：
@@ -258,7 +260,7 @@ var DoubleLinkList = /** @class */ (function () {
     };
     return DoubleLinkList;
 }());
-export { DoubleLinkList };
+exports.DoubleLinkList = DoubleLinkList;
 var Stack = /** @class */ (function () {
     function Stack() {
         this.length = 0;
@@ -326,5 +328,5 @@ var Stack = /** @class */ (function () {
     };
     return Stack;
 }());
-export { Stack };
+exports.Stack = Stack;
 //# sourceMappingURL=index.js.map

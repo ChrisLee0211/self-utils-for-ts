@@ -322,7 +322,7 @@ export const sortObject = <T extends arrayObject>(arr:T,target:string,sort:sortC
                 for(let i:number=0;i<len-1;i++){
                     let min:number = i;
                     for(let j:number = i+1;j<len;j++){
-                        if(targetArr[j].target < targetArr[min].target){
+                        if(targetArr[j][target] < targetArr[min][target] ){
                             min = j
                         }
                         [targetArr[i],targetArr[min]] = [targetArr[min],targetArr[i]]

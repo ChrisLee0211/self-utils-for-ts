@@ -1,3 +1,4 @@
+"use strict";
 var __spreadArrays = (this && this.__spreadArrays) || function () {
     for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
     for (var r = Array(s), k = 0, i = 0; i < il; i++)
@@ -5,6 +6,7 @@ var __spreadArrays = (this && this.__spreadArrays) || function () {
             r[k] = a[j];
     return r;
 };
+Object.defineProperty(exports, "__esModule", { value: true });
 var ArrayCtrl = /** @class */ (function () {
     function ArrayCtrl(arr) {
         this.arr = __spreadArrays(arr);
@@ -12,8 +14,8 @@ var ArrayCtrl = /** @class */ (function () {
     }
     ArrayCtrl.prototype.sortUp = function (x) {
         var _a;
-        if (objectCheck(x, this.arr) !== -1) {
-            var target = objectCheck(x, this.arr);
+        if (exports.objectCheck(x, this.arr) !== -1) {
+            var target = exports.objectCheck(x, this.arr);
             _a = [this.arr[target], this.arr[target - 1]], this.arr[target - 1] = _a[0], this.arr[target] = _a[1];
             return this.arr;
         }
@@ -23,8 +25,8 @@ var ArrayCtrl = /** @class */ (function () {
     };
     ArrayCtrl.prototype.sortDown = function (x) {
         var _a;
-        if (objectCheck(x, this.arr) !== -1) {
-            var target = objectCheck(x, this.arr);
+        if (exports.objectCheck(x, this.arr) !== -1) {
+            var target = exports.objectCheck(x, this.arr);
             var len = this.arr.length;
             if (target >= len - 1) {
                 return this.arr;
@@ -40,7 +42,7 @@ var ArrayCtrl = /** @class */ (function () {
     };
     return ArrayCtrl;
 }());
-export { ArrayCtrl };
+exports.ArrayCtrl = ArrayCtrl;
 var statusSwitch = /** @class */ (function () {
     function statusSwitch(value_set) {
         this.switch_key = [];
@@ -86,7 +88,7 @@ var statusSwitch = /** @class */ (function () {
     };
     return statusSwitch;
 }());
-export { statusSwitch };
+exports.statusSwitch = statusSwitch;
 /*
 函数名称: hasArray
 功能:判断一个数组里是否嵌套了子数组，是则返回true。同时也可以传入第二个参数来返回由子数组索引组成的数组
@@ -97,7 +99,7 @@ export { statusSwitch };
     2、当只传入数组时，只返回true or false来分别表示有\无子数组
     3、当传入两个参数并且第二个参数为true时，有子数组则返回子数组索引组成的数组，没有子数组则返回false
 */
-export var hasArray = function (arr, getIndex) {
+exports.hasArray = function (arr, getIndex) {
     if (getIndex === void 0) { getIndex = false; }
     var judge_arr = arr;
     var is_return_index = getIndex;
@@ -148,7 +150,7 @@ var inventObject = /** @class */ (function () {
     };
     return inventObject;
 }());
-export { inventObject };
+exports.inventObject = inventObject;
 /*
 函数名称: differArray
 功能:对比两个数组A和B，将所有只存在A而不存在B的元素抽离出来，组成一个数组返回。
@@ -160,10 +162,10 @@ export { inventObject };
         result(Array):只存在param_1而不存在param_2的元素所组成的数组
     
 */
-export var differArray = function (arr1, arr2) {
+exports.differArray = function (arr1, arr2) {
     var result = [];
     arr1.forEach(function (record) {
-        if (objectCheck(record, arr2) === -1) {
+        if (exports.objectCheck(record, arr2) === -1) {
             result.push(record);
         }
         else {
@@ -172,8 +174,8 @@ export var differArray = function (arr1, arr2) {
     });
     return result;
 };
-export var countDown = function (val, func, delay) {
-    return (val > 0) ? setTimeout(function () { return countDown(val - 1, func); }, delay) : func();
+exports.countDown = function (val, func, delay) {
+    return (val > 0) ? setTimeout(function () { return exports.countDown(val - 1, func); }, delay) : func();
 };
 /**
  * 功能：判断某个对象是否在数组中，并返回该对象在数组中的索引
@@ -182,7 +184,7 @@ export var countDown = function (val, func, delay) {
  * @param {Array} arr:作为判断的数组
  * @returns {number} 该对象在数组中的索引  -1 =》 该对象不在数组中
  */
-export var objectCheck = function (obj, arr) {
+exports.objectCheck = function (obj, arr) {
     var index = -1;
     var indexArr = [];
     if (arr instanceof Array) {
@@ -190,7 +192,7 @@ export var objectCheck = function (obj, arr) {
             return -1;
         }
         arr.forEach(function (record, idx) {
-            if (objectEqual(record, obj) === true) {
+            if (exports.objectEqual(record, obj) === true) {
                 indexArr.push(idx);
             }
         });
@@ -211,7 +213,7 @@ export var objectCheck = function (obj, arr) {
  * @param {object} y:对象2
  * @returns {boolean}
  */
-export var objectEqual = function (x, y) {
+exports.objectEqual = function (x, y) {
     var f1 = x instanceof Object;
     var f2 = y instanceof Object;
     if (!f1 || !f2) {
@@ -226,7 +228,7 @@ export var objectEqual = function (x, y) {
         var a = x[p] instanceof Object;
         var b = y[p] instanceof Object;
         if (a && b) {
-            var equal = objectEqual(x[p], y[p]);
+            var equal = exports.objectEqual(x[p], y[p]);
             if (!equal) {
                 return equal;
             }
@@ -237,7 +239,7 @@ export var objectEqual = function (x, y) {
     }
     return true;
 };
-export var sortObject = function (arr, target, sort) {
+exports.sortObject = function (arr, target, sort) {
     var _a;
     var result;
     var targetArr = __spreadArrays(arr);
@@ -261,7 +263,7 @@ export var sortObject = function (arr, target, sort) {
                 for (var i = 0; i < len - 1; i++) {
                     var min = i;
                     for (var j = i + 1; j < len; j++) {
-                        if (targetArr[j].target < targetArr[min].target) {
+                        if (targetArr[j][target] < targetArr[min][target]) {
                             min = j;
                         }
                         _a = [targetArr[min], targetArr[i]], targetArr[i] = _a[0], targetArr[min] = _a[1];
