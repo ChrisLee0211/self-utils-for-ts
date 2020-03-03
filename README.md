@@ -22,7 +22,7 @@
 - 用法：
 ```javascript
   //导入arrayCtrl.js文件
-  import {ArrayCtrl} from "./arrayCtrl.js"
+  import {ArrayCtrl} from "./ArrayCtrl"
   
   let arr = ['boy','man',2,4,6,{name:'mike'}] ;//假设有这样一组数组
   let switch_arr = new ArrayCtrl(arr);//将数组作为参数生成新的实例
@@ -48,7 +48,7 @@
 - 用法：
 ```javascript
 //导入arrayCtrl.js文件
-import {statusSwitch} from './arrayCtrl.js'
+import {statusSwitch} from "./ArrayCtrl"
 
 //假设后端传来的数据如下，对于一些状态是用0,1,2之类表示，前端需要根据规则渲染成对应数据
 let msg = [
@@ -130,7 +130,7 @@ console.log(switch_one)
 - 用法：
 ```javascript
   //导入arrayCtrl.js文件
-  import {hasArray} from "./arrayCtrl.js"
+  import {hasArray} from from "./ArrayCtrl"
   
   let arr = [['boy','man'],2,[4],6,{name:'mike'}] ;//假设有这样一组数组
   let judgeArr = hasArray(arr);//将数组作为参数传入
@@ -157,7 +157,7 @@ hasArray函数接受两个参数，第一个为要判断的数组，第二个为
 - 用法：
 ```javascript
   //导入arrayCtrl.js文件
-  import {inventObject } from "./arrayCtrl.js"
+  import {inventObject } from "./ArrayCtrl"
   
   let arr = [
       {id:1,type:'apple',isFruit:true},
@@ -186,7 +186,7 @@ hasArray函数接受两个参数，第一个为要判断的数组，第二个为
 - 用法：
 ```javascript
   //导入arrayCtrl.js文件
-  import {differArray } from "./arrayCtrl.js"
+  import {differArray } from "./ArrayCtrl"
   
   let arr_A = [
       {id:1,type:'apple',isFruit:true},
@@ -220,7 +220,7 @@ hasArray函数接受两个参数，第一个为要判断的数组，第二个为
 - 用法：
 ```javascript
   //导入arrayCtrl.js文件
-  import {objectCheck } from "./arrayCtrl.js"
+  import {objectCheck } from "./ArrayCtrl"
   
   let arr = [
       {id:1,type:'apple',isFruit:true},
@@ -258,7 +258,7 @@ hasArray函数接受两个参数，第一个为要判断的数组，第二个为
 - 用法：
 ```javascript
   //导入arrayCtrl.js文件
-  import { objectEqual } from "./arrayCtrl.js"
+  import { objectEqual } from "./ArrayCtrl"
   
   let obj1 = {name:'a',len:5,test:test(){return false}};
   let obj2 = {name:'b',check:false}
@@ -290,7 +290,7 @@ hasArray函数接受两个参数，第一个为要判断的数组，第二个为
 > 用于建立双向链表，提供了头、尾部增加节点，头、尾部删除节点，在指定位置插入节点等方法
 - 用法：
 ```javascript
-import DoubleLinkList from "./arrayCtrl.js"
+import DoubleLinkList from "./ArrayCtrl"
 
 let doubleLink = new DoubleLinkList()
 doubleLink.addOnHead({a:1}) //向链表头部添加{a:1}节点
@@ -342,7 +342,7 @@ doubleLink.getAllNode()
 > 用于创建一个栈结构(非原生js数组结构实现)，支持进栈、出栈方法，具有栈结构的的LIFO（后进先出）特性
 - 用法：
 ```javascript
-import Stack from "./arrayCtrl.js"
+import Stack from "./ArrayCtrl"
 
 let stackArr = new Stack();
 stackArr.push({name:'aaa'}) //推入一个对象进栈
