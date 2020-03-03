@@ -333,6 +333,7 @@ interface doubleLink {
     addOnTail(node: any): any
     deleteOnHead(): any
     deleteOnTail(): any
+    reverseAll():any
 }
 
 /**
@@ -347,6 +348,7 @@ interface doubleLink {
  * 7、在指定节点的前或后增加节点
  * 8、获取链表的节点个数
  * 9、打印所有节点
+ * 10.反转链表
  */
 export class DoubleLinkList implements doubleLink {
     head: any
@@ -577,6 +579,21 @@ export class DoubleLinkList implements doubleLink {
         }
         str = str + JSON.stringify(this.tail.target)
         console.log(str)
+    }
+
+    //反转链表
+    reverseAll():void{
+        let new_doubleLinkList = new DoubleLinkList();
+        let cur:Node = this.head
+        while(cur.next!=null){
+            let next:Node = cur.next;
+            new_doubleLinkList.addOnHead(cur.target);
+            cur = next;
+        };
+        this.head = new_doubleLinkList.head;
+        this.addOnHead(cur.target)
+        this.tail = new_doubleLinkList.tail;
+        
     }
 }
 

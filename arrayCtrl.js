@@ -1,6 +1,13 @@
+var __spreadArrays = (this && this.__spreadArrays) || function () {
+    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
+    for (var r = Array(s), k = 0, i = 0; i < il; i++)
+        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
+            r[k] = a[j];
+    return r;
+};
 var ArrayCtrl = /** @class */ (function () {
     function ArrayCtrl(arr) {
-        this.arr = arr.slice();
+        this.arr = __spreadArrays(arr);
         return this;
     }
     ArrayCtrl.prototype.sortUp = function (x) {
@@ -259,6 +266,7 @@ export { Node };
  * 7、在指定节点的前或后增加节点
  * 8、获取链表的节点个数
  * 9、打印所有节点
+ * 10.反转链表
  */
 var DoubleLinkList = /** @class */ (function () {
     function DoubleLinkList() {
@@ -491,6 +499,20 @@ var DoubleLinkList = /** @class */ (function () {
         }
         str = str + JSON.stringify(this.tail.target);
         console.log(str);
+    };
+    //反转链表
+    DoubleLinkList.prototype.reverseAll = function () {
+        var new_doubleLinkList = new DoubleLinkList();
+        var cur = this.head;
+        while (cur.next != null) {
+            var next = cur.next;
+            new_doubleLinkList.addOnHead(cur.target);
+            cur = next;
+        }
+        ;
+        this.head = new_doubleLinkList.head;
+        this.addOnHead(cur.target);
+        this.tail = new_doubleLinkList.tail;
     };
     return DoubleLinkList;
 }());
