@@ -300,14 +300,17 @@ doubleLink.addOnTail({c:3}) //向尾部添加{c:3}节点
 doubleLink.getAllNode() //打印所有节点
 doubleLink.deleteOnHead() //删除头部节点
 doubleLink.getAllNode() //打印所有节点
-doubleLink.addOnHead({b:2})
+doubleLink.addOnHead({b:2})//向头部继续添加{b:2}节点
 doubleLink.getAllNode() //打印所有节点
 doubleLink.deleteOnTail() //删除尾部节点
 doubleLink.getAllNode() //打印所有节点
 doubleLink.getNode({b:2}) //判断是否存在该节点
 doubleLink.removeNode({b:2}) //删除指定节点
-doubleLink.getAllNode()
-doubleLink.insertNode({d:4},{a:1},'next') //把{d:4}节点添加到{c:3}节点末尾
+doubleLink.getAllNode() //打印所有节点
+doubleLink.insertNode({d:4},{a:1},'next') //把{d:4}节点添加到{a:1}节点末尾
+doubleLink.addOnTail({c:3}) //向尾部添加{c:3}节点
+doubleLink.getAllNode() //打印所有节点
+doubleLink.reverseAll() //反转整个链表
 doubleLink.getAllNode()
 
 //打印结果
@@ -316,8 +319,11 @@ doubleLink.getAllNode()
 //{"a":1}{"c":3}
 //{"b":2}{"a":1}{"c":3}
 //{"b":2}{"a":1}
+//true
 //{"a":1}
 //{"a":1}{"d":4}
+//{"a":1}{"d":4}{c:3}
+//{"c":3}{"d":4}{"a":1}
 ```
 - 说明:  
 创建DoubleLinkList实例后，提供如下方法：
@@ -333,6 +339,7 @@ doubleLink.getAllNode()
 |insertNode|1:插入的节点，2：被插入的节点，3：指针位置('next'/'pre')|无|
 |getAllNode|无|无，打印所有节点的内容|
 |countNode|无|返回当前链表节点数量|
+|reverseAll|无|反转整个链表，无返回|
 
 ### 备注：每个返回的链表节点都具有`next`和`pre`指针，同时doubleLinkList实例具有`head`和`tail`属性，可供调用查看当前链表中的头部和尾部。
 
