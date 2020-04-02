@@ -339,3 +339,26 @@ export const sortObject = <T extends arrayObject>(arr:T,target:string,sort:sortC
     }
     return result
  }
+
+ /**
+  * 只对对象数组中指定的key值进行深拷贝
+  * @param {Object} obj:目标对象
+  * @param {Array} target :要指定的key值组成的数组
+  * @returns {Object} 
+  */
+ export const deepKeyCopy = <T>(obj:any,target:string[]):T => {
+     if(typeof(obj) === 'string'){
+         throw `can not deal with string`
+     }
+     let result:any = [];
+     Array.from(obj).forEach((record:any,index)=>{
+         let emptyObj:any = {}
+         for(let key of target){
+             if(record[key] !== undefined ||record[key] !== null){
+                 emptyObj[key] = record[key]
+             }
+         };
+         result.push(emptyObj)
+     })
+     return result
+ }
