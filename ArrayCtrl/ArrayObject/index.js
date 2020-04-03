@@ -282,4 +282,27 @@ exports.sortObject = function (arr, target, sort) {
     }
     return result;
 };
+/**
+ * 只对对象数组中指定的key值进行深拷贝
+ * @param {Object} obj:目标对象
+ * @param {Array} target :要指定的key值组成的数组
+ * @returns {Object}
+ */
+exports.deepKeyCopy = function (obj, target) {
+    if (typeof (obj) === 'string') {
+        throw "can not deal with string";
+    }
+    var result = [];
+    Array.from(obj).forEach(function (record, index) {
+        var emptyObj = {};
+        for (var key in record) {
+            if (target.includes(key)) {
+                emptyObj[key] = record[key];
+            }
+        }
+        ;
+        result.push(emptyObj);
+    });
+    return result;
+};
 //# sourceMappingURL=index.js.map

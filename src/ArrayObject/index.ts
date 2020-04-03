@@ -353,8 +353,8 @@ export const sortObject = <T extends arrayObject>(arr:T,target:string,sort:sortC
      let result:any = [];
      Array.from(obj).forEach((record:any,index)=>{
          let emptyObj:any = {}
-         for(let key of target){
-             if(record[key] !== undefined ||record[key] !== null){
+         for(let key in record){
+             if(target.includes(key)){
                  emptyObj[key] = record[key]
              }
          };

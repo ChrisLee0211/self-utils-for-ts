@@ -10,6 +10,7 @@
 * [5.数组的差集](#数组的差集)
 * [6.查找对象在数组中的位置](#查找对象在数组中的位置)
 * [7.对象比较](#对象比较)
+* [8.对象数组深拷贝](#对象数组深拷贝)
 
 ### 二、数据结构相关工具方法：
 * [1.双向链表](#双向链表)
@@ -281,6 +282,36 @@ hasArray函数接受两个参数，第一个为要判断的数组，第二个为
 |方法名|接收参数|返回结果|
 |---|---|---|
 |objectEqual|param_1(Object):比较的对象<br>param_2(Object):比较的对象|若相等则返回true，否则返回false|
+
+
+
+----
+
+### 对象数组深拷贝
+> 对一个对象数组中指定的key和其相应的value进行深拷贝，形成新的对象数组
+- 用法：
+```javascript
+  //导入arrayCtrl.js文件
+  import { deepKeyCopy } from "./ArrayCtrl"
+  
+  let obj1 = [
+        {name:'a',len:5,date:'2020.xx.xx',speed:23},
+        {name:'b',len:6,date:'2021.xx.xx',speed:24},
+    ];
+  let obj2 = deepKeyCopy(obj1,['name','date']);
+  console.log(obj2)
+
+  //打印结果:
+  //[{name:'a',date:'2020.xx.xx'},{name:'b',date:'2021.xx.xx'}]
+  
+```
+
+- 说明:  
+将要进行深拷贝的对象和目标属性组成的数组传入`deepKeyCopy()`中：
+
+|方法名|接收参数|返回结果|
+|---|---|---|
+|deepKeyCopy|param_1(Object):要进行深拷贝的的对象<br>param_2(target):指定的key组成的数组|若key值存在，则返回相应对象数组，否则返回空数组|
 
 
 
