@@ -361,4 +361,23 @@ export const sortObject = <T extends arrayObject>(arr:T,target:string,sort:sortC
          result.push(emptyObj)
      })
      return result
- }
+}
+
+export const ObjectReduce = (pre:string,obj:any):Array<string> => {
+    let result:string[] = [];
+    for(let key in obj){
+        if(obj[key] instanceof Object){
+           let current:string = pre + `.${key}`;
+           for(let i of ObjectReduce(current,obj[key])){
+               result.push(i)
+           }
+        }else{
+            let current:string = (pre+ `.${key}`).substr(1);
+            let data = {} as any;
+            data[current] = obj[key];
+            result.push(data)
+        }
+    }
+    
+    return result
+}

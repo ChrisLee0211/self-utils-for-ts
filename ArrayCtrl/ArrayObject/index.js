@@ -305,4 +305,23 @@ exports.deepKeyCopy = function (obj, target) {
     });
     return result;
 };
+exports.ObjectReduce = function (pre, obj) {
+    var result = [];
+    for (var key in obj) {
+        if (obj[key] instanceof Object) {
+            var current = pre + ("." + key);
+            for (var _i = 0, _a = exports.ObjectReduce(current, obj[key]); _i < _a.length; _i++) {
+                var i = _a[_i];
+                result.push(i);
+            }
+        }
+        else {
+            var current = (pre + ("." + key)).substr(1);
+            var data = {};
+            data[current] = obj[key];
+            result.push(data);
+        }
+    }
+    return result;
+};
 //# sourceMappingURL=index.js.map
