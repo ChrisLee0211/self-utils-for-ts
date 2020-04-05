@@ -311,7 +311,67 @@ hasArray函数接受两个参数，第一个为要判断的数组，第二个为
 
 |方法名|接收参数|返回结果|
 |---|---|---|
-|deepKeyCopy|param_1(Object):要进行深拷贝的的对象<br>param_2(target):指定的key组成的数组|若key值存在，则返回相应对象数组，否则返回空数组|
+|deepKeyCopy|param_1(Object):要进行深拷贝的的对象<br>param_2(string[]):指定的key组成的数组|若key值存在，则返回相应对象数组，否则返回空数组|
+
+
+
+----
+
+### 嵌套对象降维
+> 将一个深层嵌套的对象降维，并返回以一个对象数组，里面包含了对象的所有值和对应的层级组成的健
+- 用法：
+```javascript
+  //导入arrayCtrl.js文件
+  import { ObjectReduce } from "./ArrayCtrl"
+  
+  let obj = {
+            route:{
+                'lightings':'路灯',
+                'device':'设备'
+            },
+            audio:{
+                mission:{
+                    time:'时间',
+                    trigger:'触发器',
+                    tip:{
+                        warning:'警告'
+                    }
+                }
+            },
+            device:{
+                batchControl:{
+                    nb:{
+                        title:'传感器',
+                        error:{
+                            1:'日期错误',
+                            2:'格式错误'
+                        }
+                    }
+                }
+            }
+        }
+        let arr = ObjectReduce('',obj);
+        console.log(arr)
+
+  //打印结果:
+  //[
+  //  {route.lightings: "智慧路灯"},
+  //  {route.device: "设备管理"},
+  //  {audio.mission.time: "时间"},
+  //  {audio.mission.trigger: "触发器"},
+  //  {audio.mission.tip.warning: "警告"},
+  //  {device.batchControl.nb.title: "传感器"},
+  //  {device.batchControl.nb.error.1: "日期错误"},
+  //  {device.batchControl.nb.error.2: "格式错误"}
+  // ]  
+```
+
+- 说明:  
+将要进行降维的对象传入`deepKeyCopy()`中，：
+
+|方法名|接收参数|返回结果|
+|---|---|---|
+|ObjectReduce|param_1(string):父级对象的键名称<br>param_2(Object):要进行降维的目标对象|返回一个对象数组，如示例所示|
 
 
 

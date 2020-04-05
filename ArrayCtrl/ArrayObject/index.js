@@ -305,6 +305,13 @@ exports.deepKeyCopy = function (obj, target) {
     });
     return result;
 };
+/**
+ * 嵌套对象降维成对象数组
+ * 如将a:{b:{d:'11'},c{e:{f:'22'}}}转化为[{'a.b.d':'11'},{'a.c.e.f':'22'}]
+ * @param pre 父级对象的前缀
+ * @param obj 当前要降维的对象
+ * @returns {Array}
+ */
 exports.ObjectReduce = function (pre, obj) {
     var result = [];
     for (var key in obj) {
