@@ -381,3 +381,15 @@ export class Stack implements stack {
     }
 
 }
+
+interface queue {
+    queue:DoubleLinkList,
+    size:number
+    pop():Node['target'],
+    push(val:any):void,
+    clear():void,
+    getAll():Array<any>
+}
+/**
+ * 队列方法
+ */

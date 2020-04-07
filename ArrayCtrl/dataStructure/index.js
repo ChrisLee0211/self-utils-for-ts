@@ -344,4 +344,7 @@ var Stack = /** @class */ (function () {
     return Stack;
 }());
 exports.Stack = Stack;
+/**
+ * 队列方法
+ */ 
 //# sourceMappingURL=index.js.map
