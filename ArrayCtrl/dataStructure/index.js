@@ -346,5 +346,16 @@ var Stack = /** @class */ (function () {
 exports.Stack = Stack;
 /**
  * 队列方法
- */ 
+ * size:属性，当前队列长度
+ * pop:出列操作，弹出队列最后一个元素并返回
+ * push:入列操作
+ * clear:晴空队列
+ * getAll:打印队列中所有的元素
+ */
+var Queue = /** @class */ (function () {
+    function Queue() {
+    }
+    return Queue;
+}());
+exports.Queue = Queue;
 //# sourceMappingURL=index.js.map
