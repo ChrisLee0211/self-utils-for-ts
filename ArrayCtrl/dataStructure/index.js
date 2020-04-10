@@ -1,4 +1,15 @@
 "use strict";
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 var Node = /** @class */ (function () {
     function Node(obj) {
@@ -353,8 +364,49 @@ exports.Stack = Stack;
  * getAll:打印队列中所有的元素
  */
 var Queue = /** @class */ (function () {
-    function Queue() {
+    function Queue(val) {
+        this.queue = {};
+        this.size = 0;
+        this.queue = new DoubleLinkList();
+        this.current = this.queue.head;
+        if (val) {
+            this.push(val);
+        }
     }
+    Queue.prototype.push = function (val) {
+        var node = new Node(val);
+        this.queue.addOnHead(node);
+        this.size = this.queue.size;
+    };
+    Queue.prototype.pop = function () {
+        if (this.size === 0)
+            return {};
+        var target = __assign({}, this.queue.tail);
+        this.queue.deleteOnTail();
+        this.size = this.queue.size;
+        return target.target;
+    };
+    Queue.prototype.clear = function () {
+        this.queue = {};
+        this.size = 0;
+    };
+    Queue.prototype.getAll = function () {
+        this.queue.getAllNode();
+    };
+    Queue.prototype[Symbol.iterator] = function () {
+        return { next: this.next };
+    };
+    Queue.prototype.next = function (val) {
+        var value;
+        if (this.current !== null) {
+            value = this.current.target;
+            this.current = this.queue.head.next;
+            return { done: false, value: value };
+        }
+        else {
+            return { value: undefined, done: true };
+        }
+    };
     return Queue;
 }());
 exports.Queue = Queue;

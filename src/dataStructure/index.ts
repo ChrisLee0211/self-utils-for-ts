@@ -1,4 +1,18 @@
 
+//遍历器接口
+interface Iterable {
+    [Symbol.iterator]() : Iterator,
+  }
+  
+  interface Iterator {
+    next(value?: any) : IterationResult,
+  }
+  
+  interface IterationResult {
+    value: any,
+    done: boolean,
+  }
+
 /**
  * 类名称：节点生成器
  * 功能：创建一个包含key：value的节点并返回
@@ -29,8 +43,8 @@ export class Node implements node {
  * 接口名称：双向链表生成器
  */
 interface doubleLink {
-    head: any //头部节点引用
-    tail: any //尾部节点引用
+    head: node |null//头部节点引用
+    tail: node |null//尾部节点引用
     size: number //节点的个数
     addOnHead(node: any): any
     addOnTail(node: any): any
@@ -54,8 +68,8 @@ interface doubleLink {
  * 10.反转链表
  */
 export class DoubleLinkList implements doubleLink {
-    head: any
-    tail: any
+    head: node|null
+    tail: node|null
     size: number = 0
 
     constructor() {
@@ -72,7 +86,7 @@ export class DoubleLinkList implements doubleLink {
             _node.next = null;
             this.size += 1
         } else {
-            let old_head: node = this.head;
+            let old_head: node = this.head as node;
             this.head = _node;
             _node.next = old_head
             old_head.pre = _node;
@@ -89,7 +103,7 @@ export class DoubleLinkList implements doubleLink {
             _node.next = null;
             this.size += 1
         } else {
-            let old_tail: node = this.tail;
+            let old_tail: node = this.tail as node;
             this.tail = _node;
             _node.pre = old_tail;
             old_tail.next = _node;
@@ -103,14 +117,14 @@ export class DoubleLinkList implements doubleLink {
             return
         }
         if (this.size < 2) {
-            let currentNode: node = this.head;
+            let currentNode: node = this.head as node;
             this.head = null;
             this.tail = null;
             this.size = 0;
             return currentNode
         }
         if (this.size >= 2) {
-            let old_head: node = this.head;
+            let old_head: node = this.head as node;
             let new_head: node = old_head.next;
             if (this.size === 2) {
                 this.size = 0;
@@ -132,14 +146,14 @@ export class DoubleLinkList implements doubleLink {
             return
         }
         if (this.size < 2) {
-            let currentNode: node = this.tail;
+            let currentNode: node = this.tail as node;
             this.head = null;
             this.tail = null;
             this.size = 0;
             return currentNode
         }
         if (this.size >= 2) {
-            let old_tail: node = this.tail;
+            let old_tail: node = this.tail as node;
             let new_tail: node = old_tail.pre;
             if (this.size === 2) {
                 this.size = 0;
@@ -157,7 +171,7 @@ export class DoubleLinkList implements doubleLink {
     //判断节点是否在链表中
     getNode(val: any) {
         let _node: node = new Node(val)
-        let currentNode: node = this.head;
+        let currentNode: node = this.head as node;
         if (this.size === 0) {
             return false
         } else {
@@ -186,7 +200,7 @@ export class DoubleLinkList implements doubleLink {
             return
         }
         if (this.size === 1) {
-            let h: string = JSON.stringify(this.head.target);
+            let h: string = JSON.stringify((this.head as node).target);
             let n: string = JSON.stringify(_node.target)
             if (h === n) {
                 this.head = null;
@@ -197,14 +211,14 @@ export class DoubleLinkList implements doubleLink {
             this.size = 0
         } else {
             let currentNode = this.head;
-            let c: string = JSON.stringify(currentNode.target)
+            let c: string = JSON.stringify((currentNode as node).target)
             let n: string = JSON.stringify(_node.target)
             while (c != n) {
-                currentNode = currentNode.next;
-                c = JSON.stringify(currentNode.target)
+                currentNode = (currentNode as node).next;
+                c = JSON.stringify((currentNode as node).target)
             };
-            let preNode: node = currentNode.pre === null ? null : currentNode.pre;
-            let nextNode: node = currentNode.next === null ? null : currentNode.next;
+            let preNode: node = (currentNode as node).pre === null ? null : (currentNode as node).pre;
+            let nextNode: node = (currentNode as node).next === null ? null : (currentNode as node).next;
             if (preNode === null) {
                 this.deleteOnHead()
             }
@@ -227,7 +241,7 @@ export class DoubleLinkList implements doubleLink {
     insertNode(val: any, ele: any, type: string) {
         let _ele: node = new Node(ele);
         let _node: node = new Node(val);
-        let currentNode: node = this.head;
+        let currentNode: node = this.head as node;
         let c: string = JSON.stringify(currentNode.target);
         let e: string = JSON.stringify(_ele.target);
         if (!this.getNode(ele)) {
@@ -274,20 +288,20 @@ export class DoubleLinkList implements doubleLink {
     //打印所有节点
     getAllNode() {
         let str: string = '';
-        let currentNode: node = this.head;
+        let currentNode: node = this.head as node;
         if (currentNode === null) return
         while (currentNode.next !== null) {
             str = str + JSON.stringify(currentNode.target);
             currentNode = currentNode.next
         }
-        str = str + JSON.stringify(this.tail.target)
+        str = str + JSON.stringify((this.tail as node).target)
         console.log(str)
     }
 
     //反转链表
     reverseAll():void{
         let new_doubleLinkList = new DoubleLinkList();
-        let cur:Node = this.head
+        let cur:node = this.head as node;
         while(cur.next!=null){
             let next:Node = cur.next;
             new_doubleLinkList.addOnHead(cur.target);
@@ -343,7 +357,7 @@ export class Stack implements stack {
     pop(){
         if(this.length === 0) return null
         let result:node;
-        result = this.doubleLink.head;
+        result = this.doubleLink.head as node;
         this.doubleLink.deleteOnHead();
         this.length = this.doubleLink.countNodes();
         return result.target
@@ -366,7 +380,7 @@ export class Stack implements stack {
      * 打印栈内所有元素
      */
     getAll():Array<any>{
-        let head:node = this.doubleLink.head;
+        let head:node = this.doubleLink.head as node;
         let arr:Array<any> = []
         let current:node;
         let size:number = this.doubleLink.countNodes();
@@ -382,13 +396,14 @@ export class Stack implements stack {
 
 }
 
-interface queue {
+
+interface QueueType extends Iterable{
     queue:DoubleLinkList,
     size:number
-    pop():Node['target'],
+    pop():node['target'],
     push(val:any):void,
     clear():void,
-    getAll():Array<any>
+    getAll():void
 }
 /**
  * 队列方法
@@ -398,6 +413,54 @@ interface queue {
  * clear:晴空队列
  * getAll:打印队列中所有的元素
  */
-export class Queue implements queue {
+export class Queue implements QueueType {
+    public queue:DoubleLinkList = {} as any;
+    public size:number = 0;
+    public current:node|null;
+
+    constructor(val?:any){
+        this.queue = new DoubleLinkList();
+        this.current = this.queue.head;
+        if(val){
+            this.push(val)
+        }
+    }
+    push(val:any){
+        let node:node = new Node(val);
+        this.queue.addOnHead(node);
+        this.size = this.queue.size;
+    }
+
+    pop():node['target']{
+        if(this.size === 0) return {}
+        let target = {...this.queue.tail as node};
+        this.queue.deleteOnTail();
+        this.size = this.queue.size;
+        return target.target
+    }
+
+    clear(){
+        this.queue = {} as DoubleLinkList;
+        this.size = 0
+    }
+
+    getAll():void{
+        this.queue.getAllNode();
+    }
     
+    [Symbol.iterator](){
+        return {next:this.next}
+    }
+
+    next(val?:any){
+        let value:any;
+        if(this.current!==null){
+            value = this.current.target;
+            this.current = (this.queue.head as node).next;
+            return {done:false,value}
+        }else{
+
+            return {value:undefined,done:true}
+        }
+    }
 }
