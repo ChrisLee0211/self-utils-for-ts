@@ -264,7 +264,8 @@ var DoubleLinkList = /** @class */ (function () {
         if (currentNode === null)
             return;
         while (currentNode.next !== null) {
-            str = str + JSON.stringify(currentNode.target);
+            var targetContent = typeof (currentNode.target) === 'function' ? String(currentNode.target) : JSON.stringify(currentNode.target);
+            str = str + targetContent;
             currentNode = currentNode.next;
         }
         str = str + JSON.stringify(this.tail.target);
@@ -301,7 +302,7 @@ var Stack = /** @class */ (function () {
      */
     Stack.prototype.push = function (item) {
         var index = NaN;
-        var currentItem = new Node(item);
+        var currentItem = item;
         var size = this.doubleLink.countNodes();
         this.doubleLink.addOnHead(currentItem);
         this.length = this.doubleLink.countNodes();
@@ -372,23 +373,30 @@ var Queue = /** @class */ (function () {
         if (val) {
             this.push(val);
         }
+        ;
+        return this;
     }
     Queue.prototype.push = function (val) {
-        var node = new Node(val);
-        this.queue.addOnHead(node);
+        this.queue.addOnHead(val);
+        this.current = this.queue.head;
         this.size = this.queue.size;
     };
     Queue.prototype.pop = function () {
         if (this.size === 0)
-            return {};
+            return null;
         var target = __assign({}, this.queue.tail);
         this.queue.deleteOnTail();
         this.size = this.queue.size;
-        return target.target;
+        return target['target'];
     };
     Queue.prototype.clear = function () {
-        this.queue = {};
+        var size = this.queue.countNodes();
+        while (size > 0) {
+            this.queue.deleteOnHead();
+            size = this.queue.countNodes();
+        }
         this.size = 0;
+        return;
     };
     Queue.prototype.getAll = function () {
         this.queue.getAllNode();

@@ -15,7 +15,8 @@
 
 ### 二、数据结构相关工具方法：
 * [1.双向链表](#双向链表)
-* [1.栈](#栈)
+* [2.栈](#栈)
+* [3.队列](#队列)
 
 
 
@@ -467,4 +468,47 @@ console.log(stackArr.getAll())
 |pop|无|弹出栈顶的元素，若栈内为空，返回null，否则返回该元素|
 |clear|无|清空栈内所有元素|
 |getAll|无|以数组形式按顺序返回栈内所有元素|
+----
+
+### 队列
+> 用于创建一个队列结构(非原生js数组结构实现)，支持进列、出列方法，具有栈结构的的FIFO（先进先出）特性
+- 用法：
+```javascript
+import {Queue} from "./ArrayCtrl"
+
+const a = ()=>{
+  let str = `hello world`;
+  return str
+}
+let queueTest = new Queue();
+queueTest.push({a:1});
+queueTest.getAll(); //第一次打印
+queueTest.push(a);
+queueTest.getAll(); //第二次打印
+const b = queueTest.pop();
+const c = queueTest.pop();
+queueTest.clear();
+queueTest.getAll()
+console.log('b',b) //第三次打印
+console.log('c',c()) //第四次打印
+
+//打印结果
+//{"a":1}  第一次打印
+//()=>{
+//            let str = `hello world`;
+//            return str
+//        }{"a":1}   第二次打印
+//b {a: 1}  第三次打印
+//c hello world  第四次打印
+
+```
+- 说明:  
+创建Queue实例后，提供如下方法：
+
+|方法名|接收参数|作用/返回|
+|---|---|---|
+|push|任意内容|向队列内推入一个元素，无返回|
+|pop|无|推出队列最后一个的元素，若队列内为空，返回null，否则返回该元素|
+|clear|无|清空队列内所有元素|
+|getAll|无|按顺序打印队列内所有元素|
 

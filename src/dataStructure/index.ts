@@ -291,7 +291,8 @@ export class DoubleLinkList implements doubleLink {
         let currentNode: node = this.head as node;
         if (currentNode === null) return
         while (currentNode.next !== null) {
-            str = str + JSON.stringify(currentNode.target);
+            let targetContent:string = typeof(currentNode.target) === 'function'?String(currentNode.target):JSON.stringify(currentNode.target);
+            str = str + targetContent;
             currentNode = currentNode.next
         }
         str = str + JSON.stringify((this.tail as node).target)
@@ -341,7 +342,7 @@ export class Stack implements stack {
      */
     push(item:any):number{
         let index:number = NaN;
-        let currentItem:node = new Node(item);
+        let currentItem:node = item;
         let size:number = this.doubleLink.countNodes();
         this.doubleLink.addOnHead(currentItem);
         this.length = this.doubleLink.countNodes()
@@ -423,25 +424,31 @@ export class Queue implements QueueType {
         this.current = this.queue.head;
         if(val){
             this.push(val)
-        }
+        };
+        return this
     }
     push(val:any){
-        let node:node = new Node(val);
-        this.queue.addOnHead(node);
+        this.queue.addOnHead(val);
+        this.current = this.queue.head;
         this.size = this.queue.size;
     }
 
     pop():node['target']{
-        if(this.size === 0) return {}
+        if(this.size === 0) return null
         let target = {...this.queue.tail as node};
         this.queue.deleteOnTail();
         this.size = this.queue.size;
-        return target.target
+        return target['target']
     }
 
     clear(){
-        this.queue = {} as DoubleLinkList;
-        this.size = 0
+        let size:number = this.queue.countNodes();
+        while(size>0){
+            this.queue.deleteOnHead();
+            size = this.queue.countNodes();
+        }
+        this.size = 0;
+        return
     }
 
     getAll():void{
