@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Stack = exports.Node = exports.DoubleLinkList = exports.sortObject = exports.ObjectReduce = exports.deepKeyCopy = exports.hasArray = exports.statusSwitch = exports.inventObject = exports.objectEqual = exports.objectCheck = exports.differArray = exports.ArrayCtrl = void 0;
+exports.DeQueue = exports.Queue = exports.Stack = exports.Node = exports.DoubleLinkList = exports.sortObject = exports.ObjectReduce = exports.deepKeyCopy = exports.hasArray = exports.statusSwitch = exports.inventObject = exports.objectEqual = exports.objectCheck = exports.differArray = exports.ArrayCtrl = void 0;
 var index_1 = require("./ArrayObject/index");
 Object.defineProperty(exports, "ArrayCtrl", { enumerable: true, get: function () { return index_1.ArrayCtrl; } });
 Object.defineProperty(exports, "differArray", { enumerable: true, get: function () { return index_1.differArray; } });
@@ -16,4 +16,6 @@ var index_2 = require("./dataStructure/index");
 Object.defineProperty(exports, "Node", { enumerable: true, get: function () { return index_2.Node; } });
 Object.defineProperty(exports, "DoubleLinkList", { enumerable: true, get: function () { return index_2.DoubleLinkList; } });
 Object.defineProperty(exports, "Stack", { enumerable: true, get: function () { return index_2.Stack; } });
+Object.defineProperty(exports, "Queue", { enumerable: true, get: function () { return index_2.Queue; } });
+Object.defineProperty(exports, "DeQueue", { enumerable: true, get: function () { return index_2.DeQueue; } });
 //# sourceMappingURL=index.js.map

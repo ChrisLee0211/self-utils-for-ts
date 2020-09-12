@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Queue = exports.Stack = exports.DoubleLinkList = exports.Node = void 0;
+exports.DeQueue = exports.Queue = exports.Stack = exports.DoubleLinkList = exports.Node = void 0;
 var Node = /** @class */ (function () {
     function Node(obj) {
         this.pre = null;
@@ -347,7 +347,7 @@ var Stack = /** @class */ (function () {
 }());
 exports.Stack = Stack;
 /**
- * 队列方法
+ * 队列生成器
  * size:属性，当前队列长度
  * pop:出列操作，弹出最近入列元素并返回
  * push:入列操作
@@ -360,6 +360,7 @@ var Queue = /** @class */ (function () {
         this.count = 0;
         /**队列头部元素指针 */
         this.headIndex = 0;
+        /** 队列实体 */
         this.queue = {};
         this.init();
     }
@@ -395,8 +396,7 @@ var Queue = /** @class */ (function () {
     /** 打印队列内部所有元素 */
     Queue.prototype.getAll = function () {
         var result = [];
-        var len = this.size();
-        for (var i = this.headIndex; i < len; i++) {
+        for (var i = this.headIndex; i < this.count; i++) {
             result.push(this.queue[i]);
         }
         console.log(result);
@@ -404,4 +404,99 @@ var Queue = /** @class */ (function () {
     return Queue;
 }());
 exports.Queue = Queue;
+/**
+ * 双端队列生成器
+ * size:属性，当前队列长度
+ * pop:出列操作，弹出队列尾部元素并返回
+ * shift: 弹出队列头部元素并返回
+ * unshift: 插入元素到队列头部
+ * push:插入元素到队列尾部
+ * clear:清空队列
+ * getAll:打印队列中所有的元素
+ */
+var DeQueue = /** @class */ (function () {
+    function DeQueue() {
+        /** 队列大小 */
+        this.count = 0;
+        /**队列头部元素指针 */
+        this.headIndex = 0;
+        /** 队列实体 */
+        this.queue = {};
+        this.init();
+    }
+    /** 初始化方法 */
+    DeQueue.prototype.init = function () {
+        this.count = 0;
+        this.headIndex = 0;
+        this.queue = {};
+    };
+    /** 推入一个元素到队列尾部 */
+    DeQueue.prototype.push = function (item) {
+        this.queue[this.count] = item;
+        this.count++;
+    };
+    /** 获取队列的大小 */
+    DeQueue.prototype.size = function () {
+        return this.count - this.headIndex;
+    };
+    /** 弹出队列尾部元素 */
+    DeQueue.prototype.pop = function () {
+        var len = this.size();
+        if (len <= 0)
+            return undefined;
+        var result = this.queue[this.count - 1];
+        delete this.queue[this.count - 1];
+        this.count--;
+        return result;
+    };
+    /** 弹出队列头部元素 */
+    DeQueue.prototype.shift = function () {
+        var len = this.size();
+        if (len <= 0)
+            return undefined;
+        var result = this.queue[this.headIndex];
+        delete this.queue[this.headIndex];
+        this.headIndex++;
+        return result;
+    };
+    /** 插入元素到队列头部 */
+    DeQueue.prototype.unshift = function (item) {
+        if (this.size() <= 0) {
+            this.push(item);
+        }
+        else {
+            if (this.headIndex > 0) {
+                // 队首元素指针不为0时
+                this.headIndex--;
+                this.queue[this.headIndex] = item;
+            }
+            else {
+                // 队首元素指针为0，我们需要将将队列里的0号key空出来，其他数据整体向后移动一位。
+                for (var i = this.count; i > 0; i--) {
+                    this.queue[i] = this.queue[i - 1];
+                }
+                // 队列长度自增
+                this.count++;
+                // 队首元素设为0
+                this.headIndex = 0;
+                // 为队首的0号key添加当前元素
+                this.queue[0] = item;
+            }
+        }
+    };
+    /** 清空队列 */
+    DeQueue.prototype.clear = function () {
+        this.init();
+    };
+    /** 打印队列内部所有元素 */
+    DeQueue.prototype.getAll = function () {
+        var result = [];
+        for (var i = this.headIndex; i < this.count; i++) {
+            result.push(this.queue[i]);
+        }
+        console.log(result);
+    };
+    return DeQueue;
+}());
+exports.DeQueue = DeQueue;
 //# sourceMappingURL=index.js.map

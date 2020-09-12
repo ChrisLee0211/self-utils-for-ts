@@ -1,5 +1,5 @@
 import { ArrayCtrl, differArray, objectCheck, objectEqual, inventObject, statusSwitch, hasArray, sortObject, deepKeyCopy, ObjectReduce } from './ArrayObject/index'
-import { Node, DoubleLinkList, Stack } from './dataStructure/index'
+import { Node, DoubleLinkList, Stack,Queue,DeQueue } from './dataStructure/index'
 
 
 export {
@@ -14,5 +14,7 @@ export {
     sortObject,
     DoubleLinkList,
     Node,
-    Stack
+    Stack,
+    Queue,
+    DeQueue
 }
