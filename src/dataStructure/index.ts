@@ -397,13 +397,14 @@ export class Stack implements stack {
 
 }
 
-
-interface QueueType extends Iterable{
-    queue:DoubleLinkList,
-    size:number
-    pop():node['target'],
-    push(val:any):void,
-    clear():void,
+interface QueueItem {
+    [key:number]:any
+}
+interface QueueType {
+    size():number
+    pop():any
+    push(item:any):void
+    clear():any
     getAll():void
 }
 /**
@@ -415,59 +416,49 @@ interface QueueType extends Iterable{
  * getAll:打印队列中所有的元素
  */
 export class Queue implements QueueType {
-    public queue:DoubleLinkList = {} as any;
-    public size:number = 0;
-    public current:node|null;
-
-    constructor(val?:any){
-        this.queue = new DoubleLinkList();
-        this.current = this.queue.head;
-        if(val){
-            this.push(val)
-        };
-        return this
+    /** 队列大小 */
+    private count:number = 0;
+    /**队列头部元素指针 */
+    private headIndex:number = 0;
+    private queue:QueueItem = {};
+    constructor(){
+        this.init()
     }
-    push(val:any){
-        this.queue.addOnHead(val);
-        this.current = this.queue.head;
-        this.size = this.queue.size;
+    /** 初始化方法 */
+   private init(){
+        this.count = 0;
+        this.headIndex = 0;
+        this.queue = {}
     }
-
-    pop():node['target']{
-        if(this.size === 0) return null
-        let target = {...this.queue.tail as node};
-        this.queue.deleteOnTail();
-        this.size = this.queue.size;
-        return target['target']
+    /** 推入一个元素到队列尾部 */
+    push(item:any){
+        this.queue[this.count] = item;
+        this.count++
     }
-
+    /** 获取队列的大小 */
+    size(){
+        return this.count - this.headIndex
+    }
+    /** 弹出队列头部元素 */
+    pop(){
+        const len = this.size();
+        if(len<=0) return undefined;
+        const result = this.queue[this.headIndex];
+        delete this.queue[this.headIndex];
+        this.headIndex ++;
+        return result
+    }
+    /** 清空队列 */
     clear(){
-        let size:number = this.queue.countNodes();
-        while(size>0){
-            this.queue.deleteOnHead();
-            size = this.queue.countNodes();
+       this.init()
+    }
+    /** 打印队列内部所有元素 */
+    getAll(){
+        const result = [];
+        const len:number = this.size()
+        for(let i=this.headIndex;i<len;i++){
+            result.push(this.queue[i])
         }
-        this.size = 0;
-        return
-    }
-
-    getAll():void{
-        this.queue.getAllNode();
-    }
-    
-    [Symbol.iterator](){
-        return {next:this.next}
-    }
-
-    next(val?:any){
-        let value:any;
-        if(this.current!==null){
-            value = this.current.target;
-            this.current = (this.queue.head as node).next;
-            return {done:false,value}
-        }else{
-
-            return {value:undefined,done:true}
-        }
+        console.log(result)
     }
 }

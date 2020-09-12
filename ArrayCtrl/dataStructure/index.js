@@ -1,16 +1,6 @@
 "use strict";
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Queue = exports.Stack = exports.DoubleLinkList = exports.Node = void 0;
 var Node = /** @class */ (function () {
     function Node(obj) {
         this.pre = null;
@@ -359,61 +349,57 @@ exports.Stack = Stack;
 /**
  * 队列方法
  * size:属性，当前队列长度
- * pop:出列操作，弹出队列最后一个元素并返回
+ * pop:出列操作，弹出最近入列元素并返回
  * push:入列操作
- * clear:晴空队列
+ * clear:清空队列
  * getAll:打印队列中所有的元素
  */
 var Queue = /** @class */ (function () {
-    function Queue(val) {
+    function Queue() {
+        /** 队列大小 */
+        this.count = 0;
+        /**队列头部元素指针 */
+        this.headIndex = 0;
         this.queue = {};
-        this.size = 0;
-        this.queue = new DoubleLinkList();
-        this.current = this.queue.head;
-        if (val) {
-            this.push(val);
-        }
-        ;
-        return this;
+        this.init();
     }
-    Queue.prototype.push = function (val) {
-        this.queue.addOnHead(val);
-        this.current = this.queue.head;
-        this.size = this.queue.size;
+    /** 初始化方法 */
+    Queue.prototype.init = function () {
+        this.count = 0;
+        this.headIndex = 0;
+        this.queue = {};
     };
+    /** 推入一个元素到队列尾部 */
+    Queue.prototype.push = function (item) {
+        this.queue[this.count] = item;
+        this.count++;
+    };
+    /** 获取队列的大小 */
+    Queue.prototype.size = function () {
+        return this.count - this.headIndex;
+    };
+    /** 弹出队列头部元素 */
     Queue.prototype.pop = function () {
-        if (this.size === 0)
-            return null;
-        var target = __assign({}, this.queue.tail);
-        this.queue.deleteOnTail();
-        this.size = this.queue.size;
-        return target['target'];
+        var len = this.size();
+        if (len <= 0)
+            return undefined;
+        var result = this.queue[this.headIndex];
+        delete this.queue[this.headIndex];
+        this.headIndex++;
+        return result;
     };
+    /** 清空队列 */
     Queue.prototype.clear = function () {
-        var size = this.queue.countNodes();
-        while (size > 0) {
-            this.queue.deleteOnHead();
-            size = this.queue.countNodes();
-        }
-        this.size = 0;
-        return;
+        this.init();
     };
+    /** 打印队列内部所有元素 */
     Queue.prototype.getAll = function () {
-        this.queue.getAllNode();
-    };
-    Queue.prototype[Symbol.iterator] = function () {
-        return { next: this.next };
-    };
-    Queue.prototype.next = function (val) {
-        var value;
-        if (this.current !== null) {
-            value = this.current.target;
-            this.current = this.queue.head.next;
-            return { done: false, value: value };
+        var result = [];
+        var len = this.size();
+        for (var i = this.headIndex; i < len; i++) {
+            result.push(this.queue[i]);
         }
-        else {
-            return { value: undefined, done: true };
-        }
+        console.log(result);
     };
     return Queue;
 }());
