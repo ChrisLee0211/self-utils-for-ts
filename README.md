@@ -17,6 +17,7 @@
 * [1.双向链表](#双向链表)
 * [2.栈](#栈)
 * [3.队列](#队列)
+* [3.栈队列](#栈队列（双端队列）)
 
 
 
@@ -513,3 +514,51 @@ console.log('c',c()) //第四次打印
 |getAll|无|按顺序打印队列内所有元素|
 |size|无|获取队列长度|
 
+--- 
+
+### 栈队列（双端队列）
+> 用于创建一个双端队列结构(非原生js数组结构实现)，支持头尾进列、出列方法，既具有栈结构的的FIFO（先进先出）特性，也具有队列结构的LIFO（后进先出）特性
+- 用法：
+```javascript
+import {DeQueue} from "./ArrayCtrl"
+
+const a = ()=>{
+    let str = `hello world`;
+            return str
+  }
+        let queueTest = new DeQueue();
+        queueTest.push({a:1});
+        queueTest.getAll(); //第一次打印
+        queueTest.push(a);
+        queueTest.getAll(); //第二次打印
+        queueTest.unshift({cc:123})
+        queueTest.unshift({cc:321})
+        queueTest.getAll() // 第三次打印
+        queueTest.shift();
+        queueTest.pop();
+        queueTest.getAll()// 第四次打印
+        queueTest.clear();
+        queueTest.getAll()// 第五次打印
+
+//打印结果
+//{"a":1}  第一次打印
+// [{"a":1}fn] 第二次打印
+//[{cc:123},{cc:321},{"a":1},fn]  第三次打印
+//[{cc:321},{"a":1}]  第四次打印
+// [] 第五次打印
+
+```
+- 说明:  
+创建DeQueue实例后，提供如下方法：
+
+|方法名|接收参数|作用/返回|
+|---|---|---|
+|push|任意内容|向队列内推入一个元素，无返回|
+|pop|无|弹出队列尾部元素，若队列内为空，返回null，否则返回该元素|
+|unshift|任意内容|向队列头部推入一个元素，无返回|
+|shift|无|弹出队列头部的元素，若队列内为空，返回null，否则返回该元素|
+|clear|无|清空队列内所有元素|
+|getAll|无|按顺序打印队列内所有元素|
+|size|无|获取队列长度|
+
+---
