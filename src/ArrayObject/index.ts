@@ -1,3 +1,5 @@
+import { getVariableType } from "../utils/typeValidate";
+
 /*
 接口名称：arryCtrl
 功能：    控制数组内某一元素升降
@@ -273,20 +275,53 @@ export const objectEqual = (x: any, y: any): boolean => {
     if (Object.keys(x).length !== Object.keys(y).length) {
         return false
     }
-    let newX: Array<string> = Object.keys(x);
-    for (let p in newX) {
-        p = newX[p];
-        let a: boolean = x[p] instanceof Object;
-        let b: boolean = y[p] instanceof Object;
-        if (a && b) {
-            let equal = objectEqual(x[p], y[p])
-            if (!equal) {
+    const  newX: Array<string> = Object.keys(x);
+    const objectLength = newX.length;
+    for(let i=0;i<objectLength;i++){
+        const commonKey:string = newX[i];
+        if(Object.keys(y).includes(commonKey)===false){
+            return false
+        }
+        const typeEqual:boolean = getVariableType(x[commonKey])===getVariableType(y[commonKey]);
+        if(!typeEqual){
+            return typeEqual
+        }
+        if(getVariableType(x[commonKey]==="[object Object]")){
+            const equal = objectEqual(x[commonKey],y[commonKey]);
+            if(!equal){
                 return equal
             }
-        } else if (x[p] != y[p]) {
-            return false;
+        }
+        if(getVariableType(x[commonKey])==="[object Array]"){
+            const lenEqual:boolean = x[commonKey].length === y[commonKey].length;
+            if(!lenEqual){
+                return lenEqual
+            };
+            const l:number = x[commonKey].length;
+            for(let k=0;k<l;k++){
+                const equal:boolean = objectEqual(x[commonKey][k],y[commonKey][k]);
+                if(!equal){
+                    return equal
+                }
+            }
+        }
+        if(x[commonKey]!==y[commonKey]){
+            return false
         }
     }
+    // for (let p in newX) {
+    //     p = newX[p];
+    //     let a: boolean = x[p] instanceof Object;
+    //     let b: boolean = y[p] instanceof Object;
+    //     if (a && b) {
+    //         let equal = objectEqual(x[p], y[p])
+    //         if (!equal) {
+    //             return equal
+    //         }
+    //     } else if (x[p] != y[p]) {
+    //         return false;
+    //     }
+    // }
     return true;
     
 }
