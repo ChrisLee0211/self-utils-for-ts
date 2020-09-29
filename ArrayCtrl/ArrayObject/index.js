@@ -7,6 +7,8 @@ var __spreadArrays = (this && this.__spreadArrays) || function () {
     return r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.ObjectReduce = exports.deepKeyCopy = exports.sortObject = exports.objectEqual = exports.objectCheck = exports.countDown = exports.differArray = exports.inventObject = exports.hasArray = exports.statusSwitch = exports.ArrayCtrl = void 0;
+var typeValidate_1 = require("../utils/typeValidate");
 var ArrayCtrl = /** @class */ (function () {
     function ArrayCtrl(arr) {
         this.arr = __spreadArrays(arr);
@@ -212,6 +214,7 @@ exports.objectCheck = function (obj, arr) {
  * @param {object} x:对象1
  * @param {object} y:对象2
  * @returns {boolean}
+ * @update 2020/09/29 更新为对不同类型分别递归判断
  */
 exports.objectEqual = function (x, y) {
     var f1 = x instanceof Object;
@@ -222,19 +225,40 @@ exports.objectEqual = function (x, y) {
     if (Object.keys(x).length !== Object.keys(y).length) {
         return false;
     }
-    var newX = Object.keys(x);
-    for (var p in newX) {
-        p = newX[p];
-        var a = x[p] instanceof Object;
-        var b = y[p] instanceof Object;
-        if (a && b) {
-            var equal = exports.objectEqual(x[p], y[p]);
+    var keys = Object.keys(x);
+    var keysNums = keys.length;
+    for (var i = 0; i < keysNums; i++) {
+        var commonKey = keys[i];
+        // 先判断y对象是否同样包含一样的key
+        if (Object.keys(y).includes(commonKey) === false) {
+            return false;
+        }
+        // 判断当前遍历的属性在两个对象中是否类型一致
+        var typeEqual = typeValidate_1.getVariableType(x[commonKey]) === typeValidate_1.getVariableType(y[commonKey]);
+        if (!typeEqual) {
+            return typeEqual;
+        }
+        // 如果该属性为对象，则开始递归
+        if (typeValidate_1.getVariableType(x[commonKey]) === "[object Object]") {
+            var equal = exports.objectEqual(x[commonKey], y[commonKey]);
             if (!equal) {
                 return equal;
             }
         }
-        else if (x[p] != y[p]) {
-            return false;
+        // 如果该属性是数组，则先比较长度，再遍历数组元素继续比较
+        if (typeValidate_1.getVariableType(x[commonKey]) === "[object Array]") {
+            var lenEqual = x[commonKey].length === y[commonKey].length;
+            if (!lenEqual) {
+                return lenEqual;
+            }
+            ;
+            var l = x[commonKey].length;
+            for (var k = 0; k < l; k++) {
+                var equal = exports.objectEqual(x[commonKey][k], y[commonKey][k]);
+                if (!equal) {
+                    return equal;
+                }
+            }
         }
     }
     return true;

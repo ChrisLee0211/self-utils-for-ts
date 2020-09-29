@@ -265,6 +265,7 @@ export const objectCheck = (obj: any, arr: Array<any>): number => {
  * @param {object} x:对象1
  * @param {object} y:对象2
  * @returns {boolean}
+ * @update 2020/09/29 更新为对不同类型分别递归判断
  */
 export const objectEqual = (x: any, y: any): boolean => {
     let f1: boolean = x instanceof Object;
@@ -275,23 +276,27 @@ export const objectEqual = (x: any, y: any): boolean => {
     if (Object.keys(x).length !== Object.keys(y).length) {
         return false
     }
-    const  newX: Array<string> = Object.keys(x);
-    const objectLength = newX.length;
-    for(let i=0;i<objectLength;i++){
-        const commonKey:string = newX[i];
+    const keys: Array<string> = Object.keys(x);
+    const keysNums = keys.length;
+    for(let i=0;i<keysNums;i++){
+        const commonKey:string = keys[i];
+        // 先判断y对象是否同样包含一样的key
         if(Object.keys(y).includes(commonKey)===false){
             return false
         }
+        // 判断当前遍历的属性在两个对象中是否类型一致
         const typeEqual:boolean = getVariableType(x[commonKey])===getVariableType(y[commonKey]);
         if(!typeEqual){
             return typeEqual
         }
-        if(getVariableType(x[commonKey]==="[object Object]")){
+        // 如果该属性为对象，则开始递归
+        if(getVariableType(x[commonKey])==="[object Object]"){
             const equal = objectEqual(x[commonKey],y[commonKey]);
             if(!equal){
                 return equal
             }
         }
+        // 如果该属性是数组，则先比较长度，再遍历数组元素继续比较
         if(getVariableType(x[commonKey])==="[object Array]"){
             const lenEqual:boolean = x[commonKey].length === y[commonKey].length;
             if(!lenEqual){
@@ -305,23 +310,7 @@ export const objectEqual = (x: any, y: any): boolean => {
                 }
             }
         }
-        if(x[commonKey]!==y[commonKey]){
-            return false
-        }
     }
-    // for (let p in newX) {
-    //     p = newX[p];
-    //     let a: boolean = x[p] instanceof Object;
-    //     let b: boolean = y[p] instanceof Object;
-    //     if (a && b) {
-    //         let equal = objectEqual(x[p], y[p])
-    //         if (!equal) {
-    //             return equal
-    //         }
-    //     } else if (x[p] != y[p]) {
-    //         return false;
-    //     }
-    // }
     return true;
     
 }
