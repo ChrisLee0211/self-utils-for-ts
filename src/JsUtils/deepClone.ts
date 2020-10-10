@@ -6,7 +6,7 @@ const baseType = [
     "[object Undefined]",
 ]
 function deepClone(obj:any,cache = new WeakMap()){
-    const type:string = Object.toString.call(obj);
+    const type:string = Object.prototype.toString.call(obj);
     if(baseType.includes(type)) return obj;
     if(type === "[object Date]") return new Date(obj);
     if(type === "[object RegExp]") return new RegExp(obj);
