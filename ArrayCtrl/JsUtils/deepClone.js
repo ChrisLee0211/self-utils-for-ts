@@ -8,7 +8,7 @@ var baseType = [
 ];
 function deepClone(obj, cache) {
     if (cache === void 0) { cache = new WeakMap(); }
-    var type = Object.toString.call(obj);
+    var type = Object.prototype.toString.call(obj);
     if (baseType.includes(type))
         return obj;
     if (type === "[object Date]")
