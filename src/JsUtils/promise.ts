@@ -139,4 +139,28 @@ export default class MyPromise {
     public reject(val:any){
         return new MyPromise((resolve,reject)=>reject(val))
     }
+
+    public all(item:Array<any>|string){
+        let index:number = 0;
+        let result:Array<any> = [];
+        if(typeof item === "string"){
+            return this.resolve(item)
+        }else{
+            return new MyPromise((res,rej)=>{
+                const len:number = item.length;
+                for(let i=0;i<len;i++){
+                    this.resolve(item[i]).then((val:any)=>{
+                        index++;
+                        result.push(val);
+                        if(index === len-1){
+                            res(result)
+                        }
+                    },(err:any)=>{
+                        rej(err)
+                    })
+                }
+            })
+        }
+
+    }
 }

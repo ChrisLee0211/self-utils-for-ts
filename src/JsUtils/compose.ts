@@ -13,3 +13,4 @@ function compose(fnArray:Function[]){
         return result
     }
 }
+

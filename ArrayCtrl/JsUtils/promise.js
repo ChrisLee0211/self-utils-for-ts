@@ -117,6 +117,30 @@ var MyPromise = /** @class */ (function () {
     MyPromise.prototype.reject = function (val) {
         return new MyPromise(function (resolve, reject) { return reject(val); });
     };
+    MyPromise.prototype.all = function (item) {
+        var _this = this;
+        var index = 0;
+        var result = [];
+        if (typeof item === "string") {
+            return this.resolve(item);
+        }
+        else {
+            return new MyPromise(function (res, rej) {
+                var len = item.length;
+                for (var i = 0; i < len; i++) {
+                    _this.resolve(item[i]).then(function (val) {
+                        index++;
+                        result.push(val);
+                        if (index === len - 1) {
+                            res(result);
+                        }
+                    }, function (err) {
+                        rej(err);
+                    });
+                }
+            });
+        }
+    };
     return MyPromise;
 }());
 exports.default = MyPromise;
