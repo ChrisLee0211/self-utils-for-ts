@@ -1,5 +1,5 @@
 /**
- * 冒泡排序
+ * 冒泡排序，核心原理是进行长度len次两两交换完成排序
  */
 function bubble(arr:Array<number>):Array<number>{
     if(arr.length<1)return arr;
