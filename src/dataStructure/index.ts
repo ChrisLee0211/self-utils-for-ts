@@ -397,13 +397,13 @@ export class Stack implements stack {
 
 }
 
-interface QueueItem {
-    [key:number]:any
+interface QueueItem<T> {
+    [key:number]:T
 }
-interface QueueType {
+interface QueueType<T> {
     size():number
-    pop():any
-    push(item:any):void
+    pop():T|undefined
+    push(item:T):void
     clear():any
     getAll():void
 }
@@ -415,13 +415,13 @@ interface QueueType {
  * clear:清空队列
  * getAll:打印队列中所有的元素
  */
-export class Queue implements QueueType {
+export class Queue<T> implements QueueType<T> {
     /** 队列大小 */
     private count:number = 0;
     /**队列头部元素指针 */
     private headIndex:number = 0;
     /** 队列实体 */
-    private queue:QueueItem = {};
+    private queue:QueueItem<T> = {};
     constructor(){
         this.init()
     }
@@ -441,7 +441,7 @@ export class Queue implements QueueType {
         return this.count - this.headIndex
     }
     /** 弹出队列头部元素 */
-    pop(){
+    pop():T|undefined{
         const len = this.size();
         if(len<=0) return undefined;
         const result = this.queue[this.headIndex];
@@ -463,9 +463,9 @@ export class Queue implements QueueType {
     }
 }
 
-interface DeQueueType extends QueueType {
-    shift():any
-    unshift(item:any):void
+interface DeQueueType<T = any> extends QueueType<T> {
+    shift():T|undefined
+    unshift(item:T):void
 }
 
 /**
@@ -478,13 +478,13 @@ interface DeQueueType extends QueueType {
  * clear:清空队列
  * getAll:打印队列中所有的元素
  */
-export class DeQueue implements DeQueueType {
+export class DeQueue<T> implements DeQueueType<T> {
     /** 队列大小 */
     private count:number = 0;
     /**队列头部元素指针 */
     private headIndex:number = 0;
     /** 队列实体 */
-    private queue:QueueItem = {};
+    private queue:QueueItem<T> = {};
     constructor(){
         this.init()
     }
