@@ -14,7 +14,7 @@ function quickSort(arr) {
     var cursor = arr[cursorIndex];
     for (var i = 0; i < len; i++) {
         if (i !== cursorIndex) {
-            if (arr[i] >= cursor) {
+            if (arr[i] > cursor) {
                 right.push(arr[i]);
             }
             if (arr[i] < cursor) {
