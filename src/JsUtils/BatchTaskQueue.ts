@@ -1,4 +1,4 @@
-function throttle(fn:Function,delay=300){
+function throttleFn(fn:Function,delay=300){
     let isTrigger:boolean = false;
     return function(this:any,...args:any[]){
         if(isTrigger) return
@@ -37,7 +37,7 @@ class BatchTaskQueueCtreator<T> implements BatchTaskQueue {
     }
 
     private flushTaskCreator() {
-        return throttle((cb:batchTaskFn<T>) => {
+        return throttleFn((cb:batchTaskFn<T>) => {
             const prsentQueue = this.queue.slice();
             const cbFn = cb.bind(cb);
             this.queue = [];
