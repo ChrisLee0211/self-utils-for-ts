@@ -54,6 +54,7 @@ class BatchTaskQueueCtreator<T> implements BatchTaskQueue {
     }
 
     private gen(items:T[], limit:number,cbFn:batchTaskFn<T>){
+
         return function*() {
             const taskItems = items;
             while(taskItems.length) {
@@ -73,12 +74,17 @@ class BatchTaskQueueCtreator<T> implements BatchTaskQueue {
     private flushTaskCreator() {
         return throttleFn((cb:batchTaskFn<T>) => {
             const prsentQueue = this.queue.slice();
+            this.queue = [];
             const cbFn = cb.bind(cb);
             if (this.batchLimit === 0) {
-                this.queue = [];
                 cbFn(prsentQueue);
             } else {
-                const timeSlicer = this.timeSlice(this.gen(prsentQueue,this.batchLimit,cbFn))
+                const timeSlicer = this.timeSlice(this.gen(prsentQueue,this.batchLimit,cbFn) as GeneratorFunction)
+                if(timeSlicer) {
+                    timeSlicer();
+                }else {
+                    cbFn(prsentQueue); 
+                }
             }
         }, this.delay);
     }
