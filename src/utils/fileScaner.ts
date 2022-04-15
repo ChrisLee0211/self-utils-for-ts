@@ -1,8 +1,10 @@
 import * as fs from 'fs';
 import * as path from 'path';
 
-type Life = 'beforeScan' | 'scaning' | 'afterScan';
-type HookFn = (ctx: string|FileNode[] , type:Life) => Promise<void>
+type beforeScanFn = (entry:string, type:'beforeScan') => Promise<void>
+type scanFn = (info:{fileName:string,content:string}, type:'scaning') => Promise<void>
+type afterScanFn = (files:FileNode[], type:'afterScan') => Promise<void>
+type HookFn = beforeScanFn | scanFn | afterScanFn
 
 export type FileNode = {
     name: string
@@ -109,7 +111,7 @@ class Scaner {
     async scan(effect: HookFn) {
         const stack = [];
         try{
-            await effect(this.entry, 'beforeScan');
+            await (effect as beforeScanFn)(this.entry, 'beforeScan');
         }catch(e){
             console.error(e);
         };
@@ -148,7 +150,7 @@ class Scaner {
                     } else {
                         try {
                             const content = await this.readFileContent(currentFileNode.path, {encoding:'utf-8'}) as string;
-                            await effect(content, 'scaning');
+                            await (effect as scanFn)({fileName:currentFileNode.path,content}, 'scaning');
                         }catch(e){
                             console.error(e);
                         }
@@ -159,7 +161,7 @@ class Scaner {
         }catch(e){
             console.error(e);
         }finally{
-            await effect(this.fileNodes.slice(),'afterScan');
+            await (effect as afterScanFn)(this.fileNodes.slice(),'afterScan');
         }
         
     }
