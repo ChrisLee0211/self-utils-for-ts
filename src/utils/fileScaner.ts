@@ -1,9 +1,9 @@
 import * as fs from 'fs';
 import * as path from 'path';
 
-type beforeScanFn = (entry:string, type:'beforeScan') => Promise<void>
-type scanFn = (info:{fileName:string,content:string}, type:'scaning') => Promise<void>
-type afterScanFn = (files:FileNode[], type:'afterScan') => Promise<void>
+type beforeScanFn = (entry: string, type: 'beforeScan') => Promise<void>
+type scanFn = (info: { fileName: string, content: string }, type: 'scaning') => Promise<void>
+type afterScanFn = (files: FileNode[], type: 'afterScan') => Promise<void>
 type HookFn = beforeScanFn | scanFn | afterScanFn
 
 export type FileNode = {
@@ -16,8 +16,9 @@ class Scaner {
     entry: string = '';
     constructor(entry: string) {
         this.entry = entry;
+
     }
-    fileNodes:FileNode[] = [];
+    fileNodes: FileNode[] = [];
 
     /**
      * 扫描一个路径下的所有文件夹并返回一个文件夹名称数组
@@ -90,14 +91,14 @@ class Scaner {
         });
     }
 
-     /**
-     * 根据路径返回模块名称
-     * @param path 路径
-     * @returns {string}
-     * @author chris lee
-     * @Time 2022/04/09
-     */
-      private getModuleName(filePath: string): string {
+    /**
+    * 根据路径返回模块名称
+    * @param path 路径
+    * @returns {string}
+    * @author chris lee
+    * @Time 2022/04/09
+    */
+    private getModuleName(filePath: string): string {
         const reg = /^(index)(\.).*$/;
         const baseName = path.basename(filePath);
         const splitPath = filePath.split(path.sep);
@@ -108,14 +109,24 @@ class Scaner {
         }
     }
 
-    async scan(effect: HookFn) {
+    private async flushEffectCb(cb: Function | Function[], ...args: any[]) {
+        if (typeof cb === 'function') {
+            await cb(...args)
+        } else {
+            for (let i = 0, len = cb.length; i++;) {
+                await cb[i](...args)
+            }
+        }
+    }
+
+    async scan(effect: HookFn | HookFn[]) {
         const stack = [];
-        try{
-            await (effect as beforeScanFn)(this.entry, 'beforeScan');
-        }catch(e){
+        try {
+            await this.flushEffectCb(effect, this.entry, 'beforeScan')
+        } catch (e) {
             console.error(e);
         };
-        try{
+        try {
             const files = await this.scanFolder(this.entry);
             if (files) {
                 for (let i = 0; i < files.length; i++) {
@@ -130,40 +141,40 @@ class Scaner {
                 }
             }
             // DFS
-            while(stack.length) {
+            while (stack.length) {
                 const currentFileNode = stack.pop() as FileNode;
-                    if (currentFileNode.isFolder) {
-                        const files = await this.scanFolder(currentFileNode.path);
-                        if (files.length) {
-                            for (let i = 0; i < files.length; i++) {
-                                const isFolder = files[i].isDirectory();
-                                const filePath = path.resolve(currentFileNode.path, files[i].name);
-                                const name = this.getModuleName(filePath);
-                                const curNode: FileNode = {
-                                    name,
-                                    isFolder,
-                                    path: filePath,
-                                };
-                                stack.push(curNode);
-                            }
+                if (currentFileNode.isFolder) {
+                    const files = await this.scanFolder(currentFileNode.path);
+                    if (files.length) {
+                        for (let i = 0; i < files.length; i++) {
+                            const isFolder = files[i].isDirectory();
+                            const filePath = path.resolve(currentFileNode.path, files[i].name);
+                            const name = this.getModuleName(filePath);
+                            const curNode: FileNode = {
+                                name,
+                                isFolder,
+                                path: filePath,
+                            };
+                            stack.push(curNode);
                         }
-                    } else {
-                        try {
-                            const content = await this.readFileContent(currentFileNode.path, {encoding:'utf-8'}) as string;
-                            await (effect as scanFn)({fileName:currentFileNode.path,content}, 'scaning');
-                        }catch(e){
-                            console.error(e);
-                        }
-                        this.fileNodes.push(currentFileNode);
-                        
                     }
+                } else {
+                    try {
+                        const content = await this.readFileContent(currentFileNode.path, { encoding: 'utf-8' }) as string;
+                        await this.flushEffectCb(effect,{ fileName: currentFileNode.path, content }, 'scaning' )
+                    } catch (e) {
+                        console.error(e);
+                    }
+                    this.fileNodes.push(currentFileNode);
+
+                }
             }
-        }catch(e){
+        } catch (e) {
             console.error(e);
-        }finally{
-            await (effect as afterScanFn)(this.fileNodes.slice(),'afterScan');
+        } finally {
+            await this.flushEffectCb(effect,this.fileNodes.slice(), 'afterScan')
         }
-        
+
     }
 
 }
