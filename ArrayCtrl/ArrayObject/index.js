@@ -1,4 +1,3 @@
-"use strict";
 var __spreadArrays = (this && this.__spreadArrays) || function () {
     for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
     for (var r = Array(s), k = 0, i = 0; i < il; i++)
@@ -6,9 +5,7 @@ var __spreadArrays = (this && this.__spreadArrays) || function () {
             r[k] = a[j];
     return r;
 };
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.ObjectReduce = exports.deepKeyCopy = exports.sortObject = exports.objectEqual = exports.objectCheck = exports.countDown = exports.differArray = exports.inventObject = exports.hasArray = exports.statusSwitch = exports.ArrayCtrl = void 0;
-var typeValidate_1 = require("../utils/typeValidate");
+import { getVariableType } from "../utils/typeValidate";
 var ArrayCtrl = /** @class */ (function () {
     function ArrayCtrl(arr) {
         this.arr = __spreadArrays(arr);
@@ -16,8 +13,8 @@ var ArrayCtrl = /** @class */ (function () {
     }
     ArrayCtrl.prototype.sortUp = function (x) {
         var _a;
-        if (exports.objectCheck(x, this.arr) !== -1) {
-            var target = exports.objectCheck(x, this.arr);
+        if (objectCheck(x, this.arr) !== -1) {
+            var target = objectCheck(x, this.arr);
             _a = [this.arr[target], this.arr[target - 1]], this.arr[target - 1] = _a[0], this.arr[target] = _a[1];
             return this.arr;
         }
@@ -27,8 +24,8 @@ var ArrayCtrl = /** @class */ (function () {
     };
     ArrayCtrl.prototype.sortDown = function (x) {
         var _a;
-        if (exports.objectCheck(x, this.arr) !== -1) {
-            var target = exports.objectCheck(x, this.arr);
+        if (objectCheck(x, this.arr) !== -1) {
+            var target = objectCheck(x, this.arr);
             var len = this.arr.length;
             if (target >= len - 1) {
                 return this.arr;
@@ -44,7 +41,7 @@ var ArrayCtrl = /** @class */ (function () {
     };
     return ArrayCtrl;
 }());
-exports.ArrayCtrl = ArrayCtrl;
+export { ArrayCtrl };
 var statusSwitch = /** @class */ (function () {
     function statusSwitch(value_set) {
         this.switch_key = [];
@@ -90,7 +87,7 @@ var statusSwitch = /** @class */ (function () {
     };
     return statusSwitch;
 }());
-exports.statusSwitch = statusSwitch;
+export { statusSwitch };
 /*
 函数名称: hasArray
 功能:判断一个数组里是否嵌套了子数组，是则返回true。同时也可以传入第二个参数来返回由子数组索引组成的数组
@@ -101,7 +98,7 @@ exports.statusSwitch = statusSwitch;
     2、当只传入数组时，只返回true or false来分别表示有\无子数组
     3、当传入两个参数并且第二个参数为true时，有子数组则返回子数组索引组成的数组，没有子数组则返回false
 */
-exports.hasArray = function (arr, getIndex) {
+export var hasArray = function (arr, getIndex) {
     if (getIndex === void 0) { getIndex = false; }
     var judge_arr = arr;
     var is_return_index = getIndex;
@@ -152,7 +149,7 @@ var inventObject = /** @class */ (function () {
     };
     return inventObject;
 }());
-exports.inventObject = inventObject;
+export { inventObject };
 /*
 函数名称: differArray
 功能:对比两个数组A和B，将所有只存在A而不存在B的元素抽离出来，组成一个数组返回。
@@ -164,10 +161,10 @@ exports.inventObject = inventObject;
         result(Array):只存在param_1而不存在param_2的元素所组成的数组
     
 */
-exports.differArray = function (arr1, arr2) {
+export var differArray = function (arr1, arr2) {
     var result = [];
     arr1.forEach(function (record) {
-        if (exports.objectCheck(record, arr2) === -1) {
+        if (objectCheck(record, arr2) === -1) {
             result.push(record);
         }
         else {
@@ -176,8 +173,8 @@ exports.differArray = function (arr1, arr2) {
     });
     return result;
 };
-exports.countDown = function (val, func, delay) {
-    return (val > 0) ? setTimeout(function () { return exports.countDown(val - 1, func); }, delay) : func();
+export var countDown = function (val, func, delay) {
+    return (val > 0) ? setTimeout(function () { return countDown(val - 1, func); }, delay) : func();
 };
 /**
  * 功能：判断某个对象是否在数组中，并返回该对象在数组中的索引
@@ -186,7 +183,7 @@ exports.countDown = function (val, func, delay) {
  * @param {Array} arr:作为判断的数组
  * @returns {number} 该对象在数组中的索引  -1 =》 该对象不在数组中
  */
-exports.objectCheck = function (obj, arr) {
+export var objectCheck = function (obj, arr) {
     var index = -1;
     var indexArr = [];
     if (arr instanceof Array) {
@@ -194,7 +191,7 @@ exports.objectCheck = function (obj, arr) {
             return -1;
         }
         arr.forEach(function (record, idx) {
-            if (exports.objectEqual(record, obj) === true) {
+            if (objectEqual(record, obj) === true) {
                 indexArr.push(idx);
             }
         });
@@ -216,7 +213,7 @@ exports.objectCheck = function (obj, arr) {
  * @returns {boolean}
  * @update 2020/09/29 更新为对不同类型分别递归判断
  */
-exports.objectEqual = function (x, y) {
+export var objectEqual = function (x, y) {
     var f1 = x instanceof Object;
     var f2 = y instanceof Object;
     if (!f1 || !f2) {
@@ -234,19 +231,19 @@ exports.objectEqual = function (x, y) {
             return false;
         }
         // 判断当前遍历的属性在两个对象中是否类型一致
-        var typeEqual = typeValidate_1.getVariableType(x[commonKey]) === typeValidate_1.getVariableType(y[commonKey]);
+        var typeEqual = getVariableType(x[commonKey]) === getVariableType(y[commonKey]);
         if (!typeEqual) {
             return typeEqual;
         }
         // 如果该属性为对象，则开始递归
-        if (typeValidate_1.getVariableType(x[commonKey]) === "[object Object]") {
-            var equal = exports.objectEqual(x[commonKey], y[commonKey]);
+        if (getVariableType(x[commonKey]) === "[object Object]") {
+            var equal = objectEqual(x[commonKey], y[commonKey]);
             if (!equal) {
                 return equal;
             }
         }
         // 如果该属性是数组，则先比较长度，再遍历数组元素继续比较
-        if (typeValidate_1.getVariableType(x[commonKey]) === "[object Array]") {
+        if (getVariableType(x[commonKey]) === "[object Array]") {
             var lenEqual = x[commonKey].length === y[commonKey].length;
             if (!lenEqual) {
                 return lenEqual;
@@ -254,7 +251,7 @@ exports.objectEqual = function (x, y) {
             ;
             var l = x[commonKey].length;
             for (var k = 0; k < l; k++) {
-                var equal = exports.objectEqual(x[commonKey][k], y[commonKey][k]);
+                var equal = objectEqual(x[commonKey][k], y[commonKey][k]);
                 if (!equal) {
                     return equal;
                 }
@@ -263,8 +260,8 @@ exports.objectEqual = function (x, y) {
     }
     return true;
 };
-exports.sortObject = function (arr, target, sort) {
-    var _a;
+export var sortObject = function (arr, target, sort) {
+    var _a, _b;
     var result;
     var targetArr = __spreadArrays(arr);
     //判断是否数组
@@ -285,12 +282,23 @@ exports.sortObject = function (arr, target, sort) {
             if (isObj && isRealKey) {
                 var len = targetArr.length;
                 for (var i = 0; i < len - 1; i++) {
-                    var min = i;
-                    for (var j = i + 1; j < len; j++) {
-                        if (targetArr[j][target] < targetArr[min][target]) {
-                            min = j;
+                    if (sort === 'up') {
+                        var min = i;
+                        for (var j = i + 1; j < len; j++) {
+                            if (targetArr[j][target] < targetArr[min][target]) {
+                                min = j;
+                            }
+                            _a = [targetArr[min], targetArr[i]], targetArr[i] = _a[0], targetArr[min] = _a[1];
                         }
-                        _a = [targetArr[min], targetArr[i]], targetArr[i] = _a[0], targetArr[min] = _a[1];
+                    }
+                    else {
+                        var max = i;
+                        for (var j = i + 1; j < len; j++) {
+                            if (targetArr[j][target] > targetArr[max][target]) {
+                                max = j;
+                            }
+                            _b = [targetArr[max], targetArr[i]], targetArr[i] = _b[0], targetArr[max] = _b[1];
+                        }
                     }
                 }
                 result = __spreadArrays(targetArr);
@@ -312,7 +320,7 @@ exports.sortObject = function (arr, target, sort) {
  * @param {Array} target :要指定的key值组成的数组
  * @returns {Object}
  */
-exports.deepKeyCopy = function (obj, target) {
+export var deepKeyCopy = function (obj, target) {
     if (typeof (obj) === 'string') {
         throw "can not deal with string";
     }
@@ -336,12 +344,12 @@ exports.deepKeyCopy = function (obj, target) {
  * @param obj 当前要降维的对象
  * @returns {Array}
  */
-exports.ObjectReduce = function (pre, obj) {
+export var ObjectReduce = function (pre, obj) {
     var result = [];
     for (var key in obj) {
         if (obj[key] instanceof Object) {
             var current = pre + ("." + key);
-            for (var _i = 0, _a = exports.ObjectReduce(current, obj[key]); _i < _a.length; _i++) {
+            for (var _i = 0, _a = ObjectReduce(current, obj[key]); _i < _a.length; _i++) {
                 var i = _a[_i];
                 result.push(i);
             }

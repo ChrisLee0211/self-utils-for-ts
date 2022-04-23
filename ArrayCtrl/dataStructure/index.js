@@ -1,6 +1,3 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.DeQueue = exports.Queue = exports.Stack = exports.DoubleLinkList = exports.Node = void 0;
 var Node = /** @class */ (function () {
     function Node(obj) {
         this.pre = null;
@@ -13,7 +10,7 @@ var Node = /** @class */ (function () {
     };
     return Node;
 }());
-exports.Node = Node;
+export { Node };
 /**
  * 双向链表
  * 功能：
@@ -277,7 +274,7 @@ var DoubleLinkList = /** @class */ (function () {
     };
     return DoubleLinkList;
 }());
-exports.DoubleLinkList = DoubleLinkList;
+export { DoubleLinkList };
 var Stack = /** @class */ (function () {
     function Stack() {
         this.length = 0;
@@ -345,7 +342,7 @@ var Stack = /** @class */ (function () {
     };
     return Stack;
 }());
-exports.Stack = Stack;
+export { Stack };
 /**
  * 队列生成器
  * size:属性，当前队列长度
@@ -403,7 +400,7 @@ var Queue = /** @class */ (function () {
     };
     return Queue;
 }());
-exports.Queue = Queue;
+export { Queue };
 /**
  * 双端队列生成器
  * size:属性，当前队列长度
@@ -498,5 +495,5 @@ var DeQueue = /** @class */ (function () {
     };
     return DeQueue;
 }());
-exports.DeQueue = DeQueue;
+export { DeQueue };
 //# sourceMappingURL=index.js.map

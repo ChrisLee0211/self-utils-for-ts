@@ -1,5 +1,3 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
 var PromiseStatus;
 (function (PromiseStatus) {
     PromiseStatus["FULFILLED"] = "FULFILLED";
@@ -143,5 +141,5 @@ var MyPromise = /** @class */ (function () {
     };
     return MyPromise;
 }());
-exports.default = MyPromise;
+export default MyPromise;
 //# sourceMappingURL=promise.js.map

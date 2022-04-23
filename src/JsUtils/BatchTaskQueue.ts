@@ -1,14 +1,4 @@
-function throttleFn(fn:Function,delay=300){
-    let isTrigger:boolean = false;
-    return function(this:any,...args:any[]){
-        if(isTrigger) return
-        isTrigger = true;
-        setTimeout(()=>{
-            fn.call(this,...args);
-            isTrigger = false
-        },delay)
-    }
-}
+const INIT_DELAY=1500
 
 type batchTaskFn<T> = (items:T[]) => void;
 
@@ -17,26 +7,24 @@ interface BatchTaskQueue<T = any> {
     destory():void
 }
 
-class BatchTaskQueueCtreator<T> implements BatchTaskQueue {
+export class BatchTaskQueueCtreator<T> implements BatchTaskQueue {
     private queue:T[] = [];
-    private delay:number = 1500;
+    private delay:number = INIT_DELAY;
     private batchLimit:number = 0;
-    private flushQueueFn:null | ((cb:batchTaskFn<T>) => void) = null
+    private timer:NodeJS.Timeout|null = null;
 
     constructor(delay:number, limit = 0) {
         this.delay = delay;
         this.batchLimit = limit;
-        this.flushQueueFn = this.flushTaskCreator();
         this.push = this.push.bind(this);
         this.destory = this.destory.bind(this);
     }
 
     push(item:T, cb:batchTaskFn<T>) {
         this.queue.push(item);
-        if (this.flushQueueFn) {
-            this.flushQueueFn(cb);
-        }
+        this.flushTask(cb);
     }
+
     
     private timeSlice(gen:GeneratorFunction):Function|void{
         if(typeof gen!=="function") throw new Error(`TypeError: the param expect a generator function`)
@@ -54,7 +42,6 @@ class BatchTaskQueueCtreator<T> implements BatchTaskQueue {
     }
 
     private gen(items:T[], limit:number,cbFn:batchTaskFn<T>){
-
         return function*() {
             const taskItems = items;
             while(taskItems.length) {
@@ -71,8 +58,9 @@ class BatchTaskQueueCtreator<T> implements BatchTaskQueue {
         }
     }
 
-    private flushTaskCreator() {
-        return throttleFn((cb:batchTaskFn<T>) => {
+    private flushTask(cb:batchTaskFn<T>){
+        if(this.timer!==null) return;
+        this.timer = setTimeout(() => {
             const prsentQueue = this.queue.slice();
             this.queue = [];
             const cbFn = cb.bind(cb);
@@ -86,10 +74,13 @@ class BatchTaskQueueCtreator<T> implements BatchTaskQueue {
                     cbFn(prsentQueue); 
                 }
             }
-        }, this.delay);
+            this.timer&&clearTimeout(this.timer);
+            this.timer = null
+        },this.delay)
     }
 
     destory() {
         this.queue = [];
+        this.timer&&clearTimeout(this.timer);
     }
 }

@@ -1,6 +1,3 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.getVariableType = exports.typeValidate = exports.isBoolean = exports.isArray = exports.isUndefined = exports.isObject = void 0;
 var typeEnum = {
     "string": "[object String]",
     "number": "[object Number]",
@@ -20,7 +17,7 @@ var typeEnum = {
  * @author  chrislee
  * @Time 2020/7/12
  */
-exports.isObject = function (obj) {
+export var isObject = function (obj) {
     var res = true;
     if (Object.prototype.toString.call(obj) === '[object Object]') {
         res = true;
@@ -37,7 +34,7 @@ exports.isObject = function (obj) {
  * @author chrislee
  * @Time 2020/7/12
  */
-exports.isUndefined = function (obj) {
+export var isUndefined = function (obj) {
     var res;
     if (obj === undefined || Object.prototype.toString.call(obj) === typeEnum["undefined"]) {
         res = true;
@@ -54,7 +51,7 @@ exports.isUndefined = function (obj) {
  * @author chrislee
  * @Time 2020/7/12
  */
-exports.isArray = function (obj) {
+export var isArray = function (obj) {
     var res;
     if (obj instanceof Array || Object.prototype.toString.call(obj) === typeEnum["array"]) {
         res = true;
@@ -71,7 +68,7 @@ exports.isArray = function (obj) {
  * @author chrislee
  * @Time 2020/7/12
  */
-exports.isBoolean = function (obj) {
+export var isBoolean = function (obj) {
     var res;
     if (Object.prototype.toString.call(obj) === typeEnum["boolean"]) {
         res = true;
@@ -81,7 +78,7 @@ exports.isBoolean = function (obj) {
     }
     return res;
 };
-exports.typeValidate = function (obj, type, constant) {
+export var typeValidate = function (obj, type, constant) {
     if (constant === void 0) { constant = "The value of target"; }
     var res;
     if (Object.prototype.toString.call(obj) === typeEnum[type]) {
@@ -105,7 +102,7 @@ exports.typeValidate = function (obj, type, constant) {
  * @author chrislee
  * @Time 2020/9/28
  */
-exports.getVariableType = function (obj) {
+export var getVariableType = function (obj) {
     return Object.prototype.toString.call(obj);
 };
 //# sourceMappingURL=typeValidate.js.map

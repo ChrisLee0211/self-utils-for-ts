@@ -1,9 +1,3 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.MyPromise = void 0;
-var promise_1 = __importDefault(require("./promise"));
-exports.MyPromise = promise_1.default;
+import MyPromise from "./promise";
+export { MyPromise };
 //# sourceMappingURL=index.js.map
